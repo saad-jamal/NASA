@@ -1,0 +1,24 @@
+{
+  "name": "TheDashboard",
+  "version": "1.0.0",
+  "description": "NASA Data Visualization of key Boeing 737NG flight displays, overlayen with eye tracking data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zoey1124/NASA.git"
+  },
+  "author": "Saad Jamal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zoey1124/NASA/issues"
+  },
+  "homepage": "https://github.com/zoey1124/NASA#readme",
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3"
+  }
+}

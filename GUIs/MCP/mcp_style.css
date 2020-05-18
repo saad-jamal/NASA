@@ -1,0 +1,223 @@
+@font-face 
+{
+  font-family: "Segment7";
+  src: url(fonts/Segment7Standard.otf) format('opentype');
+}
+
+
+body {
+	background-color: white;
+	text-align: center;
+}
+
+.background {
+	background-image: url('img/mcp_back.png');
+	background-color: #FFF;
+	width: 1200px;
+	height: 195px;
+	background-size: 1200px 195px;
+	margin: auto;
+	position: relative;
+}
+
+.guage {
+	position: absolute;
+	font-family: "Segment7";
+	font-size: 25px;
+	color: white;
+	float: left;
+	text-align: right;
+	width: 100px;
+}
+
+#diseng_switch {
+	position: absolute;
+	background-image: url('img/diseng_bar.png');
+	width: 140px;
+	height: 39px;
+	background-size: 140px 39px;
+	position: absolute;
+	left: 961px;
+	top: 153px;
+}
+
+#diseng_switch.on {
+	top: 163px;
+}
+
+
+#mcp_ias_mach_ds
+{
+	left: 161px; top: 26px;
+}
+
+#mcp_hdg_ds
+{
+	left: 356px; top: 27px;
+}
+
+#mcp_alt_ds
+{
+	left: 605px; top: 29px;
+}
+
+#mcp_vert_spd_ds
+{
+	left: 814px; top: 29px;
+}
+
+.switch {
+	background-image: url('img/switch.png');
+	width: 50px;
+	height: 100px;
+	background-size: 50px 100px;
+	position: absolute;
+	transform: rotate(180deg);
+}
+
+.switch.on {
+	transform: rotate(0deg);
+}
+
+.small {
+	background-image: url('img/switch.png');
+	width: 30px;
+	height: 60px;
+	background-size: 30px 60px;
+	position: absolute;
+}
+
+#mcp_at_arm {
+	left: 18px;
+	top: 8px;
+}
+
+#mcp_spd_intv {
+	left: 264px;
+	top: 34px;
+}
+
+#mcp_alt_intv {
+	left: 695px;
+	top: 34px;
+}
+#mcp_fd_1 {
+	left: 29px;
+	top: 124px;
+}
+
+#mcp_fd_2 {
+	left: 1144px;
+	top: 120px;
+}
+
+.knob {
+	background-image: url('img/indexed-knob.png');
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+	position: absolute;
+}
+
+#ias_mach_knob {
+	left: 195px;
+	top: 87px;
+}
+
+#heading_knob {
+	left: 402px;
+	top: 83px;
+}
+
+#altitude_knob {
+	left: 624px;
+	top: 84px;
+}
+
+.button {
+	background-image: url('img/button-off.png');
+	width: 50px;
+	height: 30px;
+	background-size: 50px 30px;
+	position: absolute;
+}
+
+.button.on {
+	background-image: url('img/button-on.png');
+}
+
+#mcp_n1 {
+	left: 96px;
+	top: 158px;
+}
+
+#mcp_spd {
+	left: 167px; top: 158px;
+}
+
+#mcp_lvl_spd {
+	left: 304px; top: 158px;
+}
+
+#mcp_vnav {
+	left: 305px; top: 20px;
+}
+
+#mcp_hdg_sel {
+	left: 397px; top: 158px;
+}
+
+#mcp_lnav {
+	left: 499px; top: 22px;
+}
+
+#mcp_vor_loc {
+	left: 499px; top: 81px;
+}
+
+#mcp_apprh {
+	left: 499px; top: 158px;
+}
+
+#mcp_alt_hld {
+	left: 618px; top: 158px;
+}
+
+#mcp_vert_spd {
+	left: 733px; top: 158px;
+}
+
+#mcp_cmd_a {
+	left: 940px; top: 41px;
+}
+
+#mcp_cmd_b {
+	left: 1070px; top: 41px;
+}
+
+#mcp_cws_a {
+	left: 941px; top: 92px;
+}
+
+#mcp_cws_b {
+	left: 1070px; top: 92px;
+}
+
+.wheel{
+	background-image: url('img/scroll-wheel-a.png');
+	width: 28px;
+	height: 83px;
+	background-size: 28px 83px;
+	position: absolute;
+}
+
+.turnt
+{
+	background-image: url('img/scroll-wheel-b.png');
+}
+
+#vs_wheel
+{
+	left: 840px;
+	top: 84px;
+}

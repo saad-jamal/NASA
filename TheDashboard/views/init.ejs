@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="homepage_style.css">
+	<title>TheDashboard</title>
+</head>
+<body>
+	<h1>The Dashboard.</h1>
+
+	<p>Simulation & Eyetracking Data:</p><br>
+	<form ref="uploadForm"
+		  id="uploadFOrm"
+		  action="http://localhost:3000/upload"
+		  method="post"
+		  encType="multipart/form-data">
+		  	<input type="file" name="sampleFile">
+		  	<input type="submit">
+		  </form><br>
+  	<p>Over The Shoulder Video:</p>
+  	<form ref="uploadForm"
+		  id="uploadFOrm"
+		  action="http://localhost:3000/vid-upload"
+		  method="post"
+		  encType="multipart/form-data">
+		  	<input type="file" name="sampleFile">
+		  	<input type="submit">
+		  </form><br>
+
+	<img id="nasaIMG" src="img/nasa.png" onclick="location.href='https://www.nasa.gov'">
+	<img id="berkIMG" src="img/berk.png" onclick="location.href='https://www.berkeley.edu'">
+</body>
+</html>

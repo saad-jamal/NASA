@@ -1,0 +1,366 @@
+@font-face 
+{
+  font-family: "Segment7";
+  src: url(fonts/Segment7Standard.otf) format('opentype');
+}
+
+body {
+	background-color: white;
+	text-align: center;
+	font-family: "Times New Roman";
+	color: black;
+}
+
+.otwDiv {
+	width: 1060px;
+	height: 150px;
+	border: 2px solid black;
+	
+	line-height: 150px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 175px;
+	top: 5px;
+}
+
+.noDataDiv {
+	width: 190px;
+	height: 75px;
+	border: 2px solid black;
+	
+	line-height: 75px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 1237px;
+	top: 5px;
+}
+
+.offAOIDiv {
+	width: 190px;
+	height: 75px;
+	border: 2px solid black;
+	border-top: 0px;
+	
+	line-height: 75px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 1237px;
+	top: 82px;
+}
+
+.efisDiv {
+	width: 200px;
+	height: 150px;
+	border: 2px solid black;
+
+	line-height: 150px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 1141px;
+	top: 161px;
+}
+
+.pfdDiv {
+	width: 400px;
+	height: 400px;
+	border: 2px solid black;
+
+	line-height: 400px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 619px;
+	top: 317px;
+}
+
+.ndDiv {
+	width: 400px;
+	height: 400px;
+	border: 2px solid black;
+
+	line-height: 400px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 1025px;
+	top: 317px;
+}
+
+.upperEICASDiv {
+	width: 250px;
+	height: 240px;
+	border: 2px solid black;
+
+	line-height: 250px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 175px;
+	top: 317px;
+}
+
+.lowerEICASDiv {
+	width: 250px;
+	height: 240px;
+	border: 2px solid black;
+
+	line-height: 250px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 175px;
+	top: 564px;
+}
+
+.fmsDiv {
+	width: 182px;
+	height: 300px;
+	border: 2px solid black;
+
+	line-height: 300px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 431px;
+	top: 504px;
+}
+
+.mcpDiv {
+	width: 962px;
+	height: 152px;
+	
+	line-height: 150px;
+	font-size: 20px;
+
+	position: absolute;
+	left: 173px;
+	top: 161px;
+
+	background-image: url('img/mcp_back.png');
+	background-size: 962px 152px;
+	margin: auto;
+}
+
+.guage {
+	position: absolute;
+	font-family: "Segment7";
+	font-size: 18px;
+	color: white;
+	float: left;
+	text-align: right;
+	width: 100px;
+}
+
+#diseng_switch {
+	position: absolute;
+	background-image: url('img/diseng_bar.png');
+	width: 112px;
+	height: 30px;
+	background-size: 112px 30px;
+	position: absolute;
+	left: 771px;
+	top: 113px;
+}
+
+#diseng_switch.on {
+	top: 123px;
+}
+
+#mcp_ias_mach_ds {
+	left: 110px; 
+	top: -44px;
+}
+
+#mcp_hdg_ds
+{
+	left: 266px; 
+	top: -43px;
+}
+
+#mcp_alt_ds {
+	left: 466px; 
+	top: -42px;
+}
+
+#mcp_vert_spd_ds
+{
+	left: 634px; 
+	top: -42px;
+}
+
+.switch {
+	background-image: url('img/switch.png');
+	width: 40px;
+	height: 75px;
+	background-size: 40px 75px;
+	position: absolute;
+	transform: rotate(180deg);
+}
+
+.switch.on {
+	transform: rotate(0deg);
+}
+
+.small {
+	background-image: url('img/switch.png');
+	width: 24px;
+	height: 48px;
+	background-size: 24px 48px;
+	position: absolute;
+}
+
+#mcp_at_arm {
+	left: 14px;
+	top: 9px;
+}
+
+#mcp_spd_intv {
+	left: 212px;
+	top: 27px;
+}
+
+#mcp_alt_intv {
+	left: 557px;
+	top: 28px;
+}
+#mcp_fd_1 {
+	left: 23px;
+	top: 95px;
+}
+
+#mcp_fd_2 {
+	left: 917px;
+	top: 93px;
+}
+
+.knob {
+	background-image: url('img/indexed-knob.png');
+	width: 32px;
+	height: 32px;
+	background-size: 32px 32px;
+	position: absolute;
+}
+
+#ias_mach_knob {
+	left: 156px;
+	top: 68px;
+}
+
+#heading_knob {
+	left: 322px;
+	top: 65px;
+}
+
+#altitude_knob {
+	left: 500px;
+	top: 66px;
+}
+
+.wheel{
+	background-image: url('img/scroll-wheel-a.png');
+	width: 23px;
+	height: 67px;
+	background-size: 23px 67px;
+	position: absolute;
+}
+
+.turnt
+{
+	background-image: url('img/scroll-wheel-b.png');
+}
+
+#vs_wheel
+{
+	left: 673px;
+	top: 64px;
+}
+
+.button {
+	background-image: url('img/button-off.png');
+	width: 40px;
+	height: 24px;
+	background-size: 40px 24px;
+	position: absolute;
+}
+
+.button.on {
+	background-image: url('img/button-on.png');
+}
+
+#mcp_n1 {
+	left: 77px;
+	top: 123px;
+}
+
+#mcp_spd {
+	left: 134px; 
+	top: 123px;
+}
+
+#mcp_lvl_spd {
+	left: 244px; 
+	top: 123px;
+}
+
+#mcp_vnav {
+	left: 244px; 
+	top: 15px;
+}
+
+#mcp_hdg_sel {
+	left: 319px; 
+	top: 123px;
+}
+
+#mcp_lnav {
+	left: 401px; 
+	top: 17px;
+}
+
+#mcp_vor_loc {
+	left: 400px; 
+	top: 63px;
+}
+
+#mcp_apprh {
+	left: 400px; 
+	top: 123px;
+}
+
+#mcp_alt_hld {
+	left: 495px; 
+	top: 123px;
+}
+
+#mcp_vert_spd {
+	left: 587px; 
+	top: 123px;
+}
+
+#mcp_cmd_a {
+	left: 754px; 
+	top: 32px;
+}
+
+#mcp_cmd_b {
+	left: 858px; 
+	top: 31px;
+}
+
+#mcp_cws_a {
+	left: 754px; 
+	top: 71px;
+}
+
+#mcp_cws_b {
+	left: 858px; 
+	top: 71px;
+}
+
+#vsd_img {
+	display: none;
+}

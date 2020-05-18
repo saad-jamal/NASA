@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="framebuild_style.css">
+	<title>dataViz</title>
+</head>
+<body>
+	<div class="otwDiv">OTW</div>
+	<div class="noDataDiv">No Data</div>
+	<div class="offAOIDiv">Off AoI</div>
+
+	<div class="mcpDiv">
+		<div class='guage' id='mcp_ias_mach_ds'></div>
+		<div class='guage' id='mcp_hdg_ds'></div>
+		<div class='guage' id='mcp_alt_ds'></div>
+		<div class='guage' id='mcp_vert_spd_ds'></div>
+
+		<div class='switch' id='mcp_at_arm'></div>
+		<div class='switch' id='mcp_spd_intv'></div>
+		<div class='switch' id='mcp_alt_intv'></div>
+
+		<div class='switch small' id='mcp_fd_1'></div>
+		<div class='switch small' id='mcp_fd_2'></div>
+
+		<div class='knob' id='ias_mach_knob'></div>
+    	<div class='knob' id='heading_knob'></div>
+    	<div class='knob' id='altitude_knob'></div>
+
+    	<a href='#' class='button' id='mcp_n1'></a>
+	    <a href='#' class='button' id='mcp_spd'></a>
+	    <a href='#' class='button' id='mcp_lvl_spd'></a>
+	    <a href='#' class='button' id='mcp_vnav'></a>
+	    <a href='#' class='button' id='mcp_lnav'></a>
+	    <a href='#' class='button' id='mcp_vor_loc'></a>
+	    <a href='#' class='button' id='mcp_apprh'></a>
+	    <a href='#' class='button' id='mcp_hdg_sel'></a>
+	    <a href='#' class='button' id='mcp_alt_hld'></a>
+	    <a href='#' class='button' id='mcp_vert_spd'></a>
+
+	    <a href='#' class='button' id='mcp_cmd_a'></a>
+    	<a href='#' class='button' id='mcp_cmd_b'></a>
+	    <a href='#' class='button' id='mcp_cws_a'></a>
+	    <a href='#' class='button' id='mcp_cws_b'></a>
+
+		<a class='wheel' id='vs_wheel'></a>
+
+		<a href='#' class='on' id='diseng_switch'></a>
+	</div>
+	<div class="efisDiv">EFIS</div>
+
+	<div class="upperEICASDiv">Upper EICAS</div>
+	<div class="lowerEICASDiv">Lower EICAS</div>
+
+	<div class="fmsDiv">FMS</div>
+
+	<div class="ndDiv">
+		<canvas id="ndCanvas" width="400" height="400"></canvas>
+		<img src="img/vsd.png" id="vsd_img">
+	</div>
+	<div class="pfdDiv">
+		<canvas id="pfdCanvas" width="400" height="400"></canvas>
+	</div>
+
+	<div class="miscDiv">
+		<canvas id="miscCanvas" width="160" height="605"></canvas>
+	</div>
+
+	<canvas id="eyeCanvas" width="1256" height="809"></canvas>
+
+	<div class="controlPanel">
+		<img src="img/play.png" id="play">
+		<img src="img/pause.png" id="pause">
+		<img src="img/stop.png" id="stop">
+		<img src="img/faster.png" id="faster">
+		<img src="img/slower.png" id="slower">
+
+		<div class="slidecontainer">
+			<p id="time">Real Time: --/--/-- --:--</p>
+  			<p id="frame">Frame Count: 0</p>
+  			<input type="range" min="1" max="100" value="1" class="slider" id="slider">
+		</div>
+	</div>
+
+	<div class="vidControls">
+		<img src="img/tv.png" id="tv">
+		<img src="img/speaker.png" id="speaker">
+		<img src="img/gear.png" id="settings">
+	</div>
+
+	<div id="vidDiv">
+		<video id="vid"> <source src="video/overShoulder.mp4" type="video/mp4"></video>
+	</div>
+
+	<div id="settingsDiv">
+		<h1 id="settingsHeader"><u>Settings:</u></h1>
+		<label for="fixationRadius" id="fixationRadiusLabel">Fixation Radius:</label>
+  		<input type="text" id="fixationRadius" name="fixationRadius">
+
+  		<label for="fixationOpacity" id="fixationOpacityLabel">Fixation Opacity:</label>
+  		<input type="text" id="fixationOpacity" name="fixationOpacity">
+
+  		<label for="radialDecay" id="radialDecayLabel">Radial Decay:</label>
+  		<input type="text" id="radialDecay" name="radialDecay">
+
+  		<label for="videoOffset" id="videoOffsetLabel">Video Offset:</label>
+  		<input type="text" id="videoOffset" name="videoOffset">
+
+  		<label for="simOffset" id="simOffsetLabel">Sim. Input:</label>
+  		<input type="text" id="simOffset" name="simOffsetInput">
+
+  		<label for="numFixations" id="numFixationsLabel">Num. Fixations:</label>
+  		<input type="text" id="numFixations" name="numFixations">
+
+  		<label for="displayControls" id="displayControlsLabel">Video Controls: </label>
+  		<input type="checkbox" id="displayControls" name="displayControls">
+
+  		<label for="fixationCross" id="fixationCrossLabel">Fixation Cross: </label>
+  		<input type="checkbox" id="fixationCross" name="fixationCross">
+
+  		<input id="submitSettings" type="submit" value="Apply">
+
+  		<div id="fixationStyle">
+  			<label for="fill">Fill</label>
+  			<input type="radio" id="fill" name="fixationStyle" value="fill">
+
+  			<label for="stroke">Stroke</label>
+  			<input type="radio" id="stroke" name="fixationStyle" value="stroke">
+  		</div>
+	</div>
+</body>
+</html>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<!-- MCP JS Files -->
+<script src="js/mcp/mcp_panel.js"></script>
+<script src="js/mcp/mcp_components.js"></script>
+<script src="js/mcp/mcp_sim.js"></script>
+
+<!-- Misc. Sim JS Files -->
+<script src="js/misc/misc_sim.js"></script>
+
+<!-- ND JS File -->
+<script src="js/nd/nd_sim.js"></script>
+
+<!-- PFD JS Files -->
+<script src="js/pfd/elements.js"></script>
+<script src="js/pfd/pfd_sim.js"></script>
+<script src="js/pfd/mod_bar.js"></script>
+<script src="js/pfd/airspeed_indicator.js"></script>
+<script src="js/pfd/altimeter_indicator.js"></script>
+<script src="js/pfd/attitude_indicator.js"></script>
+<script src="js/pfd/heading_indicator.js"></script>
+<script src="js/pfd/ils_probe.js"></script>
+
+<!-- Initialize Simulation -->
+<script src="js/init/widget_initialization.js"></script>
+<script type="text/javascript">
+	//Data Index will iterate through the JSON input file.
+	var data_index = 0;
+	var raw_string = <%-(data)%>;
+	var raw_memory = raw_string;
+	document.getElementById("slider").max = (raw_memory.length - 3) * 3;
+</script>
+
+<!-- Data Processing -->
+<script src="js/processing/data_entry.js"></script>
+<script src="js/processing/eyetracking.js"></script>
+<script type="text/javascript">
+	function drawAll() {
+		mcpSim.panel.render();
+		ndSim.draw(ndCtx, 400, 400);
+
+		miscSim.draw(miscCtx, 160, 605);
+
+		pfdCtx.clearRect(0, 0, 400, 400);
+		pfdCtx.fillStyle = "black";
+        pfdCtx.fillRect(0, 0, 400, 400);
+		for(i = 0; i < guages.length; i++) {
+			guages[i].update(pfdSim.memory);
+			guages[i].draw();
+		}
+	}
+	drawAll();
+</script>
+
+<!-- Run Simulation -->
+<script type="text/javascript">
+	var runner;
+	var running = false;
+	//Note that we are running at 20 hertz.
+	var sim_speed = 16.7 * 3;
+
+	var tvVisible = false;
+	var settingsVisible = false;
+	var displayControls = false;
+
+	initOffset = 0;
+
+	$("#fixationRadius").val(initRadius);
+	$("#fixationOpacity").val(initOpacity);
+	$("#radialDecay").val(initDecay);
+	$('input:radio[name=fixationStyle]')[1].checked = initStyle == "stroke";
+	$("#videoOffset").val(initOffset);
+	document.getElementById("vid").currentTime = initOffset;
+	$("#simOffset").val(0);
+	$("#numFixations").val(initFixations);
+	$('#displayControls').prop('checked', false);
+	$("#vid").attr("controls", displayControls);
+	$('#fixationCross').prop('checked', true);
+
+	$("#play").click(function() {
+		if (running) {
+			return;
+		} else {
+			running = true;
+			runner = setInterval(runSimulation, sim_speed);
+			console.log("Playing simulation.");
+		}
+		document.getElementById("vid").play();
+	})
+
+	$("#pause").click(function() {
+		if (!running) {
+			return;
+		} else {
+			running = false;
+			runner = clearInterval(runner);
+			console.log("Paused simulation.");
+		}
+		document.getElementById("vid").pause();
+	})
+
+	$("#stop").click(function() {
+		runner = clearInterval(runner);
+		running = false;
+		data_index = 0;
+		sim_speed = 16.7 * 3;
+		console.log("Reset simulation.");
+
+		document.getElementById("slider").value = 3*data_index;
+		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		$("#simOffset").val(3*data_index);
+		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+		trackerQueue = [];
+		document.getElementById("vid").pause();
+		document.getElementById("vid").currentTime = 0;
+		$("#videoOffset").val(0);
+	})
+
+	$("#faster").click(function() {
+		runner = clearInterval(runner);
+		running = false;
+		sim_speed *= .8;
+	})
+
+	$("#slower").click(function() {
+		runner = clearInterval(runner);
+		running = false;
+		sim_speed *= 1.2;
+	})
+
+	$("#tv").click(function() {
+		if (tvVisible) {
+			document.getElementById("vidDiv").style.display = 'none';
+		} else {
+			document.getElementById("vidDiv").style.display = 'block';
+		}
+		tvVisible = !tvVisible
+
+		$("#vid").attr("controls", displayControls);
+		$('#fixationCross').prop('checked', cross);
+	})
+
+	$("#speaker").click(function() {
+		document.getElementById("vid").muted = !document.getElementById("vid").muted;
+		if (document.getElementById("vid").muted) {
+			document.getElementById("speaker").src = "img/mute.png";
+		} else {
+			document.getElementById("speaker").src = "img/speaker.png";
+		}
+	})
+
+	$("#settings").click(function() {
+		if (running) {
+			running = false;
+			runner = clearInterval(runner);
+			console.log("Changing settings. Simulation paused.");
+		}
+
+		if (settingsVisible) {
+			document.getElementById("settingsDiv").style.display = 'none';
+		} else {
+			document.getElementById("settingsDiv").style.display = 'block';
+		}
+		settingsVisible = !settingsVisible
+
+		$("#fixationRadius").val(initRadius);
+		$("#fixationOpacity").val(initOpacity);
+		$("#radialDecay").val(initDecay);
+		$('input:radio[name=fixationStyle]')[1].checked = initStyle == "stroke";
+		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
+		$("#numFixations").val(initFixations);
+		$('#fixationCross').prop('checked', cross);
+		document.getElementById("vid").pause();
+	})
+
+	$("#submitSettings").click(function() {
+    	console.log("Applied new settings.");
+    	initRadius = parseInt($("#fixationRadius").val());
+		initOpacity = parseFloat($("#fixationOpacity").val());
+		initDecay = parseFloat($("#radialDecay").val());
+		initFixations = parseInt($("#numFixations").val());
+		displayControls = $('#displayControls').prop('checked');
+		$("#vid").attr("controls", displayControls);
+		if ($('input:radio[name=fixationStyle]')[1].checked) {
+			initStyle = "stroke";
+		} else {
+			initStyle = "fill";
+		}
+		cross = $('#fixationCross').prop('checked');
+		data_index = Math.round($("#simOffset").val() / (0.0167 * 3));
+		console.log("Frame Count Changed: " + data_index);
+		initOffset = parseInt($("#videoOffset").val());
+		document.getElementById("vid").currentTime = (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])) + initOffset;
+		
+		document.getElementById("slider").value = 3*data_index;
+		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+    })
+
+	function runSimulation() {
+		data_index = parseInt(data_index) + 1; 
+
+		document.getElementById("slider").value = 3*data_index;
+		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
+		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+		if (data_index < (raw_memory.length - 3)) {
+			enterData();
+			drawAll();
+			drawTracking();
+		} else {
+			console.log("Finished simulation.");
+			runner = clearInterval(runner);
+			running = false;
+			data_index = 0;
+		}
+	}
+
+	var slider = document.getElementById("slider");
+	// Update the current slider value (each time you drag the slider handle)
+	slider.oninput = function() {
+		console.log("Pausing simulation. Slider value is being changed.");
+		runner = clearInterval(runner);
+		running = false;
+	 	data_index = parseInt(slider.value / 3);
+	 	document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+	 	$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
+	 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+
+	 	document.getElementById("vid").currentTime = (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])) + initOffset;
+
+	 	document.getElementById("vid").pause();
+	}
+    
+</script>

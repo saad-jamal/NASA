@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="nd_style.css">
+</head>
+<body>
+	<canvas id="alpha" width="500" height="500"></canvas>
+	<img src="img/vsd.png" id="vsd_img">
+</body>
+</html>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/nd_sim.js"></script>
+
+<script type="text/javascript">
+	var cvs = document.getElementById("alpha");
+	var ctx = cvs.getContext("2d");
+
+	var GUAGE_BACKGROUND = "#191921";
+	var WIDTH = cvs.width;
+	var HEIGHT = cvs.height;
+
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+	var sim = new NDSim();
+
+	sim.memory.gnd_spd = 200;
+	sim.memory.true_as = 141;
+	sim.memory.wind_dir_at_ac = 11.11;
+	sim.memory.wind_spd_at_ac = 7.9;
+	sim.memory.mag_track_angle = 107;
+	sim.memory.hdg_angle = 90;
+	sim.memory.mag_hdg_angle = 106.8;
+	sim.memory.lat = 39;
+	sim.memory.long = -78;
+	sim.memory.fo_ef_nd_mode = 1;
+	sim.memory.fo_ef_rnge = 81;
+	sim.memory.fo_bel_gs_lt = 1;
+	sim.memory.fo_vsd_on = 0;
+
+	sim.draw(ctx, WIDTH, HEIGHT);
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="framebuild_style.css">
+</head>
+<body>
+	<div class="otwDiv">OTW</div>
+	<div class="noDataDiv">No Data</div>
+	<div class="offAOIDiv">Off AoI</div>
+
+	<div class="mcpDiv">
+		<div class='guage' id='mcp_ias_mach_ds'>9999</div>
+		<div class='guage' id='mcp_hdg_ds'>0000</div>
+		<div class='guage' id='mcp_alt_ds'>9999</div>
+		<div class='guage' id='mcp_vert_spd_ds'>9999</div>
+
+		<div class='switch' id='mcp_at_arm'></div>
+		<div class='switch' id='mcp_spd_intv'></div>
+		<div class='switch' id='mcp_alt_intv'></div>
+
+		<div class='switch small' id='mcp_fd_1'></div>
+		<div class='switch small' id='mcp_fd_2'></div>
+
+		<div class='knob' id='ias_mach_knob'></div>
+    	<div class='knob' id='heading_knob'></div>
+    	<div class='knob' id='altitude_knob'></div>
+
+    	<a href='#' class='button' id='mcp_n1'></a>
+	    <a href='#' class='button' id='mcp_spd'></a>
+	    <a href='#' class='button' id='mcp_lvl_spd'></a>
+	    <a href='#' class='button' id='mcp_vnav'></a>
+	    <a href='#' class='button' id='mcp_lnav'></a>
+	    <a href='#' class='button' id='mcp_vor_loc'></a>
+	    <a href='#' class='button' id='mcp_apprh'></a>
+	    <a href='#' class='button' id='mcp_hdg_sel'></a>
+	    <a href='#' class='button' id='mcp_alt_hld'></a>
+	    <a href='#' class='button' id='mcp_vert_spd'></a>
+
+	    <a href='#' class='button' id='mcp_cmd_a'></a>
+    	<a href='#' class='button' id='mcp_cmd_b'></a>
+	    <a href='#' class='button' id='mcp_cws_a'></a>
+	    <a href='#' class='button' id='mcp_cws_b'></a>
+
+		<a class='wheel' id='vs_wheel'></a>
+
+		<a href='#' class='on' id='diseng_switch'></a>
+	</div>
+	<div class="efisDiv">EFIS</div>
+
+	<div class="upperEICASDiv">Upper EICAS</div>
+	<div class="lowerEICASDiv">Lower EICAS</div>
+
+	<div class="fmsDiv">FMS</div>
+
+	<div class="ndDiv">
+		<canvas id="ndCanvas" width="400" height="400"></canvas>
+		<img src="img/vsd.png" id="vsd_img">
+	</div>
+	<div class="pfdDiv">
+		<canvas id="pfdCanvas" width="400" height="400"></canvas>
+	</div>
+	
+</body>
+</html>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<script src="js/mcp_panel.js"></script>
+<script src="js/mcp_components.js"></script>
+<script src="js/mcp_sim.js"></script>
+
+<script src="js/nd_sim.js"></script>
+
+<script src="js/elements.js"></script>
+<script src="js/pfd_sim.js"></script>
+<script src="js/mod_bar.js"></script>
+<script src="js/airspeed_indicator.js"></script>
+<script src="js/altimeter_indicator.js"></script>
+<script src="js/attitude_indicator.js"></script>
+<script src="js/heading_indicator.js"></script>
+<script src="js/ils_probe.js"></script>
+
+<script src="js/widget_initialization.js"></script>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment7" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="mcp_style.css">
+</head>
+<body>
+	<div class='background'>
+		<div class='guage' id='mcp_ias_mach_ds'>1000</div>
+		<div class='guage' id='mcp_hdg_ds'>000</div>
+		<div class='guage' id='mcp_alt_ds'>1000</div>
+		<div class='guage' id='mcp_vert_spd_ds'>1000</div>
+
+		<div class='switch' id='mcp_at_arm'></div>
+		<div class='switch' id='mcp_spd_intv'></div>
+		<div class='switch' id='mcp_alt_intv'></div>
+
+		<div class='switch small' id='mcp_fd_1'></div>
+		<div class='switch small' id='mcp_fd_2'></div>
+
+		<div class='knob' id='ias_mach_knob'></div>
+    	<div class='knob' id='heading_knob'></div>
+    	<div class='knob' id='altitude_knob'></div>
+
+    	<a href='#' class='button' id='mcp_n1'></a>
+	    <a href='#' class='button' id='mcp_spd'></a>
+	    <a href='#' class='button' id='mcp_lvl_spd'></a>
+	    <a href='#' class='button' id='mcp_vnav'></a>
+	    <a href='#' class='button' id='mcp_lnav'></a>
+	    <a href='#' class='button' id='mcp_vor_loc'></a>
+	    <a href='#' class='button' id='mcp_apprh'></a>
+	    <a href='#' class='button' id='mcp_hdg_sel'></a>
+	    <a href='#' class='button' id='mcp_alt_hld'></a>
+	    <a href='#' class='button' id='mcp_vert_spd'></a>
+
+	    <a href='#' class='button' id='mcp_cmd_a'></a>
+    	<a href='#' class='button' id='mcp_cmd_b'></a>
+	    <a href='#' class='button' id='mcp_cws_a'></a>
+	    <a href='#' class='button' id='mcp_cws_b'></a>
+
+		<a class='wheel' id='vs_wheel'></a>
+
+    	<a href='#' class='on' id='diseng_switch'></a>
+	</div>
+
+	<!-- Form inputted for demonstrative purposes. -->
+	<form>
+		<br>
+		<label for='A/S'>A/S:</label>
+		<input id='input_mcp_ias_mach_ds' type="text" name="A/S"><br>
+		<label for='HDG'>Heading:</label>
+		<input id='input_mcp_hdg_ds' type="text" name="HDG"><br>
+		<label for='ALT'>Altitude:</label>
+		<input id='input_mcp_alt_ds' type="text" name="ALT"><br>
+		<label for='V/S'>Vertical Speed:</label>
+		<input id='input_mcp_vert_spd_ds' type="text" name="V/S"><br>
+
+		<input id='input_mcp_n1' type="checkbox" name="mcp_n1">
+		<label for="mcp_n1">n1</label><br>
+		<input id='input_mcp_spd' type="checkbox" name="mcp_spd">
+		<label for="mcp_spd">spd</label><br>
+		<input id='input_mcp_lvl_spd' type="checkbox" name="mcp_lvl_spd">
+		<label for="mcp_lvl_spd">lvl_spd</label><br>
+		<input id='input_mcp_vnav' type="checkbox" name="mcp_vnav">
+		<label for="mcp_vnav">vnav</label><br>
+		<input id='input_mcp_lnav' type="checkbox" name="mcp_lnav">
+		<label for="mcp_lnav">lnav</label><br>
+		<input id='input_mcp_vor_loc' type="checkbox" name="mcp_vor_loc">
+		<label for="mcp_vor_loc">vor_loc</label><br>
+		<input id='input_mcp_apprh' type="checkbox" name="mcp_apprh">
+		<label for="mcp_apprh">apprh</label><br>
+		<input id='input_mcp_hdg_sel' type="checkbox" name="mcp_hdg_sel">
+		<label for="mcp_hdg_sel">hdg_sel</label><br>
+		<input id='input_mcp_alt_hld' type="checkbox" name="mcp_alt_hld">
+		<label for="mcp_alt_hld">alt_hld</label><br>
+		<input id='input_mcp_vert_spd' type="checkbox" name="mcp_vert_spd">
+		<label for="mcp_vert_spd">vert_spd</label><br>
+		<input id='input_mcp_cmd_a' type="checkbox" name="mcp_cmd_a">
+		<label for="mcp_cmd_a">cmd_a</label><br>
+		<input id='input_mcp_cmd_b' type="checkbox" name="mcp_cmd_b">
+		<label for="mcp_cmd_b">cmd_b</label><br>
+		<input id='input_mcp_cws_a' type="checkbox" name="mcp_cws_a">
+		<label for="mcp_cws_a">cws_a</label><br>
+		<input id='input_mcp_cws_b' type="checkbox" name="mcp_cws_b">
+		<label for="mcp_cws_b">cws_b</label><br>
+		<input id='input_mcp_fd_1' type="checkbox" name="mcp_fd_1">
+		<label for="mcp_fd_1">fd_1</label><br>
+		<input id='input_mcp_fd_2' type="checkbox" name="mcp_fd_2">
+		<label for="mcp_fd_2">fd_2</label><br>
+		<input id='input_mcp_at_arm' type="checkbox" name="mcp_at_arm">
+		<label for="mcp_at_arm">at_arm</label><br>
+		<input id='input_mcp_spd_intv' type="checkbox" name="mcp_spd_intv">
+		<label for="mcp_spd_intv">spd_intv</label><br>
+		<input id='input_mcp_alt_intv' type="checkbox" name="mcp_alt_intv">
+		<label for="mcp_alt_intv">alt_intv</label><br>
+
+		<br> 
+		<p id="sub" style='border: 4px solid black; width: 50px; margin: auto;'>Update</p>
+
+		<br>
+		<p id="test" style='border: 4px solid black; width: 50px; margin: auto;'>Test</p>
+	</form>
+</body>
+</html>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<script src="js/mcp_panel.js"></script>
+<script src="js/mcp_components.js"></script>
+<script src="js/mcp_sim.js"></script>
+
+<script type="text/javascript">
+	var sim = new MCPSim();
+
+	// For demonstration purposes only.
+	$("#sub").click(function() {
+		sim.memory.mcp_ias_mach_ds = $("#input_mcp_ias_mach_ds").val();
+		sim.memory.mcp_hdg_ds = $("#input_mcp_hdg_ds").val();
+		sim.memory.mcp_alt_ds = $("#input_mcp_alt_ds").val();
+		sim.memory.mcp_vert_spd_ds = $("#input_mcp_vert_spd_ds").val();
+		sim.memory.mcp_n1 = $("#input_mcp_n1").is(":checked");
+		sim.memory.mcp_spd = $("#input_mcp_spd").is(":checked");
+		sim.memory.mcp_lvl_spd = $("#input_mcp_lvl_spd").is(":checked");
+		sim.memory.mcp_vnav = $("#input_mcp_vnav").is(":checked");
+		sim.memory.mcp_lnav = $("#input_mcp_lnav").is(":checked");
+		sim.memory.mcp_vor_loc = $("#input_mcp_vor_loc").is(":checked");
+		sim.memory.mcp_apprh = $("#input_mcp_apprh").is(":checked");
+		sim.memory.mcp_hdg_sel = $("#input_mcp_hdg_sel").is(":checked");
+		sim.memory.mcp_alt_hld = $("#input_mcp_alt_hld").is(":checked");
+		sim.memory.mcp_vert_spd = $("#input_mcp_vert_spd").is(":checked");
+		sim.memory.mcp_cmd_a = $("#input_mcp_cmd_a").is(":checked");
+		sim.memory.mcp_cmd_b = $("#input_mcp_cmd_b").is(":checked");
+		sim.memory.mcp_cws_a = $("#input_mcp_cws_a").is(":checked");
+		sim.memory.mcp_cws_b = $("#input_mcp_cws_b").is(":checked");
+		sim.memory.mcp_fd_1 = $("#input_mcp_fd_1").is(":checked");
+		sim.memory.mcp_fd_2 = $("#input_mcp_fd_2").is(":checked");
+		sim.memory.mcp_at_arm = $("#input_mcp_at_arm").is(":checked");
+		sim.memory.mcp_spd_intv = $("#input_mcp_spd_intv").is(":checked");
+		sim.memory.mcp_alt_intv = $("#input_mcp_alt_intv").is(":checked");
+		sim.panel.render();
+	});
+	var runner;
+	var running = false;
+	$("#test").click(function() {
+		if (running == false) {
+			runner = setInterval(testAnimation, 100);
+			running = true;
+		} else {
+			runner = clearInterval(runner);
+			running = false;
+		}
+	})
+
+	var testAnimation = function() {
+		sim.memory.mcp_ias_mach_ds += 1;
+		sim.memory.mcp_hdg_ds += 2;
+		sim.memory.mcp_alt_ds += 4;
+		sim.memory.mcp_vert_spd_ds += 3;
+		
+		sim.memory.mcp_n1 = Math.random() >= 0.97;
+		sim.memory.mcp_spd = Math.random() >= 0.97;
+		sim.memory.mcp_lvl_spd = Math.random() >= 0.97;
+		sim.memory.mcp_vnav = Math.random() >= 0.97;
+		sim.memory.mcp_lnav = Math.random() >= 0.97;
+		sim.memory.mcp_vor_loc = true;
+		sim.memory.mcp_apprh = false;
+		sim.memory.mcp_hdg_sel = true;
+		sim.memory.mcp_alt_hld = true;
+		sim.memory.mcp_vert_spd = Math.random() >= 0.01;
+		
+		sim.memory.mcp_cmd_a = Math.random() >= 0.9;
+		sim.memory.mcp_cmd_b = Math.random() >= 0.9;
+		sim.memory.mcp_cws_a = Math.random() >= 0.9;
+		sim.memory.mcp_cws_b = Math.random() >= 0.9;
+		
+		sim.memory.mcp_fd_1 = Math.random() >= 0.01;
+		sim.memory.mcp_fd_2 = Math.random() >= 0.01;
+		sim.memory.mcp_at_arm = true;
+		sim.memory.mcp_spd_intv = true;
+		sim.memory.mcp_alt_intv = false;
+		sim.panel.render();
+	}
+
+</script>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="pfd_style.css">
+</head>
+<body>
+	<canvas id="alpha" width="500" height="500"></canvas>
+</body>
+</html>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/elements.js"></script>
+<script src="js/pfd_sim.js"></script>
+<script src="js/mod_bar.js"></script>
+<script src="js/airspeed_indicator.js"></script>
+<script src="js/altimeter_indicator.js"></script>
+<script src="js/attitude_indicator.js"></script>
+<script src="js/heading_indicator.js"></script>
+<script src="js/ils_probe.js"></script>
+
+<script type="text/javascript">	
+	var cvs = document.getElementById("alpha");
+	var ctx = cvs.getContext("2d");
+
+	var GUAGE_BACKGROUND = "#191921";
+	var GUAGE_FOREGROUND = 'white';
+	var GROUND = "#752E00";
+  	var SKY = "#0072B9";
+  	var EARTH = "#0B6739"; 
+  	var BUG = "#F844F8";
+	var WIDTH = cvs.width;
+	var HEIGHT = cvs.height;
+
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+	var data = new PFDSim();
+
+	var guages = [];
+	function initGuages() {
+		//Attitude Indicator
+		guages[0] = new AttitudeIndicator(ctx,
+		{
+			"x": 90,
+			"y": 100,
+			"width": 260,
+			"height": 280,
+		},
+		data);
+		//Airspeed Digits Tape
+		guages[1] = new AirspeedTape(ctx,
+		{
+			"x": 12,
+			"y": 70,
+			"width": 65,
+			"height": 390
+		},
+		data);
+		//Airspeed Ticker
+		guages[2] = new AirspeedTicker(ctx,
+		{
+			"x": 60,
+			"y": 250,
+			"width": 40,
+			"height": 30
+		},
+		data);
+		//Altimter Digits Tap
+		guages[3] = new AltimeterTape(ctx,
+		{
+			"x": 380,
+			"y": 70,
+			"width": 65,
+			"height": 390
+		},
+		data);
+		//Rate Of Climb Tape
+		guages[4] = new ClimbTape(ctx,
+		{
+			"x": 455,
+			"y": 70,
+			"width": 35,
+			"height": 390
+		},
+		data);
+		//Altimeter Ticker
+		guages[5] = new AltimeterTicker(ctx,
+		{
+			"x": 392,
+			"y": 250,
+			"width": 50,
+			"height": 30
+		},
+		data);
+		//Top Mode Bar
+		guages[6] = new ModeBar(ctx,
+		{
+			"x": 125,
+			"y": 15,
+			"width": 250,
+			"height": 40
+		},
+		data);
+		//Heading Compass
+		guages[7] = new HeadingDial(ctx,
+		{
+			"x": 220,
+			"y": 500,
+			"width": 80,
+			"height": 120
+		},
+		data);
+		//ILS GS/Loc Dev Probes
+		guages[8] = new gsProbe(ctx,
+		{
+			"x": 355,
+			"y": 240,
+			"width": 12,
+			"height": 10
+		},
+		data);
+
+		guages[9] = new locProbe(ctx,
+		{
+			"x": 220,
+			"y": 392,
+			"width": 12,
+			"height": 10
+		},
+		data);
+	}
+
+	initGuages();
+
+	//ENTER DATA INTO SIM
+	data.at_eng_mode = "MCP SPD";
+	data.fo_roll_eng = "VOR/LOC";
+	data.fo_roll_arm = "LNAV";
+	data.fo_pit_eng = "G/S";
+	data.fo_pit_arm = "FLARE";
+
+	data.fo_cws_pit = true;
+	data.fo_cws_roll = true;
+
+	data.fo_ap_stat = "CMD";
+
+	data.fo_cmd_pit_dev = 0;
+	data.fo_cmd_roll_dev = 0;
+	data.ils_2_gs_dev = 0;
+	data.ils_2_loc_dev = 0;
+	data.mcp_ias_mach_ds = 300;
+	data.mcp_alt_ds = 27000;
+	data.mcp_vert_spd_ds = 500;
+	data.fo_ef_baro_cur = 1022;
+	data.cal_as = 450;
+	data.rate_of_clb = 3000;
+	data.pres_alt = 1100;
+	data.radio_alt = 2400;
+	data.pitch_angle = 0;
+	data.roll_angle = 0;
+	data.hdg_angle = 97;
+	//END DATA ENTRY
+
+	for(i = 0; i < guages.length; i++) {
+		guages[i].update(data);
+		guages[i].draw();
+	}
+</script>
