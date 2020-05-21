@@ -53,7 +53,7 @@ body {
 	top: 10px;
 }
 
-#faster {
+#forward {
 	width: 30px;
 	height: 30px;
 
@@ -62,7 +62,7 @@ body {
 	top: 30px;
 }
 
-#slower {
+#backward {
 	width: 30px;
 	height: 30px;
 
@@ -84,6 +84,14 @@ body {
 
 	position: absolute;
 	left: 190px;
+	top: 8px;
+}
+
+#elapsed {
+	font-size: 14px;
+
+	position: absolute;
+	left: 310px;
 	top: 8px;
 }
 
@@ -725,6 +733,20 @@ label {
 	position: absolute;
 	left: 330px;
 	top: 95px;
+}
+
+#alertIndicatorLabel {
+	position: absolute;
+	left: 220px;
+	top: -40px;
+
+	font-size: 16px;
+}
+
+#alertIndicator {
+	position: absolute;
+	left: 330px;
+	top: 125px;
 }
 
 #fixationOpacityLabel {

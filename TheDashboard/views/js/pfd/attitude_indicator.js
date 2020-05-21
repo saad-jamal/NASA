@@ -87,7 +87,10 @@ function AttitudeIndicator(ctx, location, data) {
 		var heiPDev = 4;
 		var YaddFactor = pDev;
 		var yPDev = YaddFactor - (heiPDev/2);
-		ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
+		if (yPDev <= 110 && yPDev >= -110) {
+			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
+		}
+		console.log("YADD: ",yPDev);
 
 		rDev = rDev * 5 * this.pixelsPerDegree;
 		var XAddFactor = rDev;
@@ -95,7 +98,10 @@ function AttitudeIndicator(ctx, location, data) {
 		var heiPDev = 160;
 		var xPDev = XAddFactor - (widthPDev/2);
 		var yPDev = 0 - (heiPDev / 2);
-		ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
+		console.log("XADD: ",xPDev);
+		if (xPDev <= 100 && xPDev >= -100) {
+			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
+		}
 
 		//Wings
 		ctx.fillStyle = "#000";

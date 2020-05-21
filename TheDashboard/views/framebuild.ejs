@@ -71,12 +71,13 @@
 		<img src="img/play.png" id="play">
 		<img src="img/pause.png" id="pause">
 		<img src="img/stop.png" id="stop">
-		<img src="img/faster.png" id="faster">
-		<img src="img/slower.png" id="slower">
+		<img src="img/plus_one.png" id="forward">
+		<img src="img/minus_one.png" id="backward">
 
 		<div class="slidecontainer">
 			<p id="time">Real Time: --/--/-- --:--</p>
   			<p id="frame">Frame Count: 0</p>
+  			<p id="elapsed">Elapsed Time: 00:00</p>
   			<input type="range" min="1" max="100" value="1" class="slider" id="slider">
 		</div>
 	</div>
@@ -117,6 +118,9 @@
 
   		<label for="fixationCross" id="fixationCrossLabel">Fixation Cross: </label>
   		<input type="checkbox" id="fixationCross" name="fixationCross">
+
+  		<label for="alertIndicator" id="alertIndicatorLabel">Alert Indicator: </label>
+  		<input type="checkbox" id="alertIndicator" name="alertIndicator">
 
   		<input id="submitSettings" type="submit" value="Apply">
 
@@ -212,6 +216,7 @@
 	var settingsVisible = false;
 	var eventVisible = false;
 	var displayControls = false;
+	var indicatorAlert = true;
  
 	if (raw_event_data == 0) {
 		eventFlags = [];
@@ -251,7 +256,8 @@
 	$("#numFixations").val(initFixations);
 	$('#displayControls').prop('checked', false);
 	$("#vid").attr("controls", displayControls);
-	$('#fixationCross').prop('checked', true);
+	$('#fixationCross').prop('checked', cross);
+	$('#alertIndicator').prop('checked', indicatorAlert);
 
 	$("#play").click(function() {
 		if (running) {
@@ -284,7 +290,8 @@
 
 		document.getElementById("slider").value = 3*data_index;
 		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
-		$("#simOffset").val(3*data_index);
+		document.getElementById("elapsed").innerHTML = "Elapsed Time: 00:00";
+		$("#simOffset").val(0);
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 		trackerQueue = [];
 		document.getElementById("vid").pause();
@@ -293,22 +300,46 @@
 		$("#videoOffset").val(0);
 	})
 
-	$("#faster").click(function() {
+	$("#forward").click(function() {
 		runner = clearInterval(runner);
 		running = false;
-		sim_speed *= .5;
-
 		document.getElementById("vid").pause();
-		document.getElementById("vid").playbackRate *= 2;
+		
+		data_index += 20;
+		document.getElementById("vid").currentTime += 1;
+
+		document.getElementById("slider").value = 3*data_index;
+		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
+		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+
+		if (data_index < (raw_memory.length - 3)) {
+			enterData();
+			drawAll();
+			drawTracking();
+		}
 	})
 
-	$("#slower").click(function() {
+	$("#backward").click(function() {
 		runner = clearInterval(runner);
 		running = false;
-		sim_speed *= 2;
-
 		document.getElementById("vid").pause();
-		document.getElementById("vid").playbackRate *= 0.5;
+		if (data_index <= 0) {
+			return;
+		} 
+		data_index -= 20;
+		document.getElementById("vid").currentTime -= 1;
+
+		document.getElementById("slider").value = 3*data_index;
+		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
+		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+
+		if (data_index < (raw_memory.length - 3)) {
+			enterData();
+			drawAll();
+			drawTracking();
+		}
 	})
 
 	$("#tv").click(function() {
@@ -321,6 +352,7 @@
 
 		$("#vid").attr("controls", displayControls);
 		$('#fixationCross').prop('checked', cross);
+		$('#alertIndicator').prop('checked', indicatorAlert);
 	})
 
 	$("#speaker").click(function() {
@@ -394,6 +426,7 @@
 		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		$("#numFixations").val(initFixations);
 		$('#fixationCross').prop('checked', cross);
+		$('#alertIndicator').prop('checked', indicatorAlert);
 		document.getElementById("vid").pause();
 	})
 	$("#downloadIndicators").click(function() {
@@ -418,6 +451,7 @@
 			initStyle = "fill";
 		}
 		cross = $('#fixationCross').prop('checked');
+		indicatorAlert = $('#alertIndicator').prop('checked');
 		data_index = Math.round($("#simOffset").val() / (0.0167 * 3));
 		console.log("Frame Count Changed: " + data_index * 3);
 		initOffset = parseInt($("#videoOffset").val());
@@ -425,23 +459,27 @@
 		
 		document.getElementById("slider").value = 3*data_index;
 		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
     })
 
 	function runSimulation() {
 		data_index = parseInt(data_index) + 1; 
 
-		for (i = 0; i < eventFlags.length; i++) {
-			event_data_index = Math.round(eventFlags[i].time / (0.0167 * 3));
-			if (event_data_index == data_index) {
-				document.getElementById("vid").pause();
-				alert(eventFlags[i].message);
-				break;
+		if (indicatorAlert) {
+			for (i = 0; i < eventFlags.length; i++) {
+				event_data_index = Math.round(eventFlags[i].time / (0.0167 * 3));
+				if (event_data_index == data_index) {
+					document.getElementById("vid").pause();
+					alert(eventFlags[i].message);
+					break;
+				}
 			}
 		}
 		document.getElementById("vid").play();
 		document.getElementById("slider").value = 3*data_index;
 		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 		if (data_index < (raw_memory.length - 3)) {
@@ -464,6 +502,7 @@
 		running = false;
 	 	data_index = parseInt(slider.value / 3);
 	 	document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+	 	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -474,5 +513,18 @@
     
     document.getElementById("slider").value = 3*data_index;
 	document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+
+	function formatTime(secondsElapsed) {
+			secondsElapsed = Math.floor(secondsElapsed);
+			minutesElapsed = Math.floor(secondsElapsed / 60);
+			secondsElapsed = secondsElapsed - (minutesElapsed * 60);
+
+			formattedMinutes = ("0" + minutesElapsed).slice(-2);
+			formattedSeconds = ("0" + secondsElapsed).slice(-2);
+
+			formattedTime = formattedMinutes + ":" + formattedSeconds;
+			return formattedTime;
+	}
 </script>

@@ -29,6 +29,9 @@ function MiscSim() {
 		ctx.moveTo(ctxWid/2, 65);
 		var r = 80;
 		var theta = this.memory.throttle_1_pos * (Math.PI/180)
+		if (this.memory.throttle_1_pos < 0) {
+			theta = 0;
+		}
 		var rX = (ctxWid/2) - (r*Math.cos(theta));
 		var rY = 65 - (r*Math.sin(theta));
 		ctx.lineTo(rX, rY);
@@ -53,6 +56,9 @@ function MiscSim() {
 		ctx.moveTo(ctxWid/2, 175);
 		var r = 80;
 		var theta = this.memory.throttle_2_pos * (Math.PI/180);
+		if (this.memory.throttle_2_pos < 0) {
+			theta = 0;
+		}
 		var rX = (ctxWid/2) - (r*Math.cos(theta));
 		var rY = 175 - (r*Math.sin(theta));
 		ctx.lineTo(rX, rY);

@@ -10,9 +10,13 @@ initRadius = 40;
 initOpacity = 1;
 initDecay = 0.60;
 initStyle = "stroke";
-initFixations = 10;
+initFixations = 5;
 cross = true;
 linearDecay = true;
+
+previousObject = "";
+newFixation = true;
+
 
 function drawTracking() {
 	var object_being_viewed = raw_memory[data_index]["\"PGaze_Object_ID\""];
@@ -24,72 +28,109 @@ function drawTracking() {
 	resetBorders();
 	eyeCtx.clearRect(0, 0, ctxWid, ctxHei);
 
+	if (data_index > 0) {
+		newFixation = raw_memory[data_index]["\"saccade\""] == "0" 
+			&& raw_memory[data_index - 1]["\"saccade\""] == "1";
+	}
+	if (previousObject != object_being_viewed 
+			&& raw_memory[data_index]["\"saccade\""] != "1") {
+		newFixation  = true;
+	}
+
 	if (object_being_viewed === "0") {
 		console.log("Pilot Is Viewing: Off AOI");
 		eyeCtx.strokeStyle = "rgba(128,128,128," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(128,128,128," + initOpacity + ")";
 		$(".offAOIDiv").css("border", "6px solid #ff0000");
+
+		previousObject = "0";
 	} else if (confidence < 0.85) {
 		console.log("Pilot Is Viewing: NoData");
 		eyeCtx.strokeStyle = "rgba(128,128,128," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(128,128,128," + initOpacity + ")";
 		$(".noDataDiv").css("border", "6px solid #ff0000");
-	} else if (object_being_viewed === "1003") {
+
+		previousObject = "0";
+	} else if (object_being_viewed === "1003" && newFixation) {
 		console.log("Pilot Is Viewing: PFD");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1003", x: 851, y: 715, wid: 400, hei: 400, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === "1004") {
+
+		newFixation = false;
+		previousObject = "1003";
+	} else if (object_being_viewed === "1004" && newFixation) {
 		console.log("Pilot Is Viewing: ND");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1004", x: 445, y: 715, wid: 400, hei: 400, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === "1005") {
+
+		newFixation = false;
+		previousObject = "1004";
+	} else if (object_being_viewed === "1005" && newFixation) {
 		console.log("Pilot Is Viewing: OTW");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1005", x: 2, y: 151, wid: 1060, hei: 150, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === ("1006")) {
+
+		newFixation = false;
+		previousObject = "1005";
+	} else if (object_being_viewed === ("1006") && newFixation) {
 		console.log("Pilot Is Viewing: Upper EICAS");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1006", x: 2, y: 556, wid: 250, hei: 243, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === ("1007")) {
+
+		newFixation  = false;
+		previousObject = "1006";
+	} else if (object_being_viewed === ("1007") && newFixation) {
 		console.log("Pilot Is Viewing: EFIS");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1007", x: 1013, y: 307, wid: 200, hei: 150, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === ("1008")) {
+
+		newFixation = false;
+		previousObject = "1007";
+	} else if (object_being_viewed === ("1008") && newFixation) {
 		console.log("Pilot Is Viewing: FMS");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1008", x: 260, y: 807, wid: 182, hei: 306, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === ("1009")) {
+
+		newFixation = false;
+		previousObject = "1008";
+	} else if (object_being_viewed === ("1009") && newFixation) {
 		console.log("Pilot Is Viewing: MCP");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1009", x: 2, y: 306, wid: 1010, hei: 152, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
-	} else if (object_being_viewed === ("1010")) {
+
+		newFixation = false;
+		previousObject = "1009";
+	} else if (object_being_viewed === ("1010") && newFixation) {
 		console.log("Pilot Is Viewing: Lower EICAS");
 		eyeCtx.strokeStyle = "rgba(200,0,0," + initOpacity + ")";
 		eyeCtx.fillStyle = "rgba(200,0,0," + initOpacity + ")";
 		origin = {id: "1010", x: 2, y: 807, wid: 250, hei: 243, pgazeX: x, pgazeY: y};
 		hold = data_index;
 		trackerQueue.push(origin);
+
+		newFixation = false;
+		previousObject = "1010";
 	}
 	drawTrackers();
 }
