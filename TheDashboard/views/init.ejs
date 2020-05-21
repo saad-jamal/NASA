@@ -9,17 +9,27 @@
 
 	<p>Simulation & Eyetracking Data:</p><br>
 	<form ref="uploadForm"
-		  id="uploadFOrm"
+		  id="uploadForm"
 		  action="http://localhost:3000/upload"
 		  method="post"
 		  encType="multipart/form-data">
 		  	<input type="file" name="sampleFile">
 		  	<input type="submit">
 		  </form><br>
-  	<p>Over The Shoulder Video:</p>
+  	<p>Over The Shoulder Video:</p><br>
   	<form ref="uploadForm"
-		  id="uploadFOrm"
+		  id="uploadForm"
 		  action="http://localhost:3000/vid-upload"
+		  method="post"
+		  encType="multipart/form-data">
+		  	<input type="file" name="sampleFile">
+		  	<input type="submit">
+		  </form><br>
+
+	<p>Event Indicators:</p><br>
+	<form ref="uploadForm"
+		  id="uploadForm"
+		  action="http://localhost:3000/event-upload"
 		  method="post"
 		  encType="multipart/form-data">
 		  	<input type="file" name="sampleFile">

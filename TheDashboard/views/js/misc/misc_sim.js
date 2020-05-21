@@ -118,10 +118,37 @@ function MiscSim() {
 		ctx.fillText("30", 48, 400);
 		ctx.fillText("45", 48, 435);
 
+
+		ctx.font = "10px Arial";
+		if (!this.memory.spd_brk_arm) {
+			ctx.fillStyle = "rgba(219, 219, 219, 0.6)";
+			ctx.strokeStyle = "rgba(219, 219, 219, 0.6)";
+		} else {
+			ctx.fillStyle = "rgba(0, 77, 4, 1)";
+			ctx.strokeStyle = "rgba(0, 77, 4, 1)";
+		}
+		ctx.lineWidth = 3;
+		ctx.fillText("SPD BRAKE", 92, 355);
+		ctx.fillText("ARMED", 102, 368);
+		ctx.strokeRect(91, 340, 60, 35);
+
+		if (!this.memory.spdbrk_ext_lt) {
+			ctx.fillStyle = "rgba(219, 219, 219, 0.6)";
+			ctx.strokeStyle = "rgba(219, 219, 219, 0.6)";
+		} else {
+			ctx.fillStyle = "rgba(0, 77, 4, 1)";
+			ctx.strokeStyle = "rgba(0, 77, 4, 1)";
+		}
+		ctx.lineWidth = 3;
+		ctx.fillText("SPD BRAKE", 92, 395);
+		ctx.fillText("EXTENDED", 94, 408);
+		ctx.strokeRect(91, 380, 60, 35);
+
 		ctx.fillStyle = 'red';
 		ctx.font = "12px Arial";
 		var ledger = 475;
 		var spacing = 14;
+
 		if (this.memory.mstr_caution) {
 			ctx.fillText("▻ MASTER CAUTION", 10, ledger);
 			ledger += spacing;

@@ -80,9 +80,9 @@ function initGuages() {
 	guages[4] = new ClimbTape(pfdCtx,
 	{
 		"x": 365,
-		"y": 25,
+		"y": 85,
 		"width": 30,
-		"height": 335
+		"height": 230
 	},
 	pfdSim.memory);
 	//Altimeter Ticker

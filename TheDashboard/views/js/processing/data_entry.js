@@ -32,6 +32,10 @@ function enterData() {
 	miscSim.memory.flap_angle = format_misc(raw_memory[i]["\"flap_angle\""]);
 	miscSim.memory.spoiler_pos = format_misc(raw_memory[i]["\"spoiler_pos\""]);
 
+	miscSim.memory.spd_brk_arm = zero_or_one(raw_memory[i]["\"spd_brk_arm\""]);
+	miscSim.memory.spdvrk_ext_lt = zero_or_one(raw_memory[i]["\"spdbrk_ext_lt\""]);
+
+
 	miscSim.memory.mstr_caution = zero_or_one(raw_memory[i]["\"mstr_caution\""]);
 	miscSim.memory.capt_ap_discon = zero_or_one(raw_memory[i]["\"capt_ap_discon\""]);
 	miscSim.memory.fo_ap_discon = zero_or_one(raw_memory[i]["\"fo_ap_discon\""]);

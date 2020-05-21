@@ -421,9 +421,9 @@ body {
 
 .button.on {
 	background-image: url('img/button-on-yellow.png');
-	animation-duration: 1.2s;
+/*	animation-duration: 1.2s;
 	animation-name: bounceIn;
-	animation-iteration-count: infinite;
+	animation-iteration-count: infinite;*/
 }
 
 @keyframes bounceIn {
@@ -510,17 +510,22 @@ body {
 }
 
 #speaker {
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 
 	position: absolute;
-	left: 55px;
+	left: 47px;
 	top: 776px;
 }
 
+.simControls {
+	width: 30px;
+	height: 30px;
+}
+
 #tv {
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 
 	position: absolute;
 	left: 5px;
@@ -528,11 +533,20 @@ body {
 }
 
 #settings {
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 
 	position: absolute;
-	left: 104px;
+	left: 90px;
+	top: 776px;
+}
+
+#pin {
+	width: 35px;
+	height: 35px;
+
+	position: absolute;
+	left: 130px;
 	top: 776px;
 }
 
@@ -563,7 +577,7 @@ video {
 	height: 350px;
 
 	line-height: 350px;
-	font-size: 20px;
+	font-size: 16px;
 
 	border: 2px solid black;
 	background-color: white;
@@ -571,6 +585,24 @@ video {
 	position: absolute;
 	left: 520px;
 	top: 237px;
+	opacity: 1;
+
+	display: none;
+}
+
+#eventsDiv {
+	width: 400px;
+	height: 125px;
+
+	line-height: 350px;
+	font-size: 20px;
+
+	border: 2px solid black;
+	background-color: white;
+
+	position: absolute;
+	left: 520px;
+	top: 300px;
 	opacity: 1;
 
 	display: none;
@@ -584,6 +616,66 @@ video {
 	top: -172px;
 }
 
+#eventsHeader {
+	font-size: 36px;
+
+	position: absolute;
+	left: 68px;
+	top: -172px;
+
+	height: 5px;
+}
+
+#eventTimeLabel {
+	position: absolute;
+	left: 25px;
+	top: -106px;
+
+	font-size: 16px;
+}
+
+#eventMessageLabel {
+	position: absolute;
+	left: 118px;
+	top: -121px;
+
+	font-size: 16px;
+}
+
+#eventTime {
+	position: absolute;
+	top: 60px;
+	left: 65px;
+	width: 39px;
+	height: 14px;
+}
+
+#eventMessage {
+	position: absolute;
+	left: 182px;
+	top: 60px;
+	width: 90px;
+	height: 30px;
+}
+
+#addEvent {
+	position: absolute;
+	left: 290px;
+	top: 60px;
+}
+
+#eventList {
+	position: absolute;
+	left: 25px;
+	top: 80px;
+
+	font-size: 20px;
+	line-height: 30px;
+
+	list-style: none;
+}
+
+}
 label {
 	font-size: 16px;
 }
@@ -592,6 +684,8 @@ label {
 	position: absolute;
 	left: 30px;
 	top: -100px;
+
+	font-size: 16px;
 }
 
 #fixationRadius {
@@ -607,18 +701,24 @@ label {
 	position: absolute;
 	left: 220px;
 	top: -100px;
+
+	font-size: 16px;
 }
 
 #displayControls {
 	position: absolute;
 	left: 330px;
 	top: 65px;
+
+	font-size: 16px;
 }
 
 #fixationCrossLabel {
 	position: absolute;
 	left: 220px;
 	top: -70px;
+
+	font-size: 16px;
 }
 
 #fixationCross {
@@ -631,6 +731,8 @@ label {
 	position: absolute;
 	left: 30px;
 	top: -65px;
+
+	font-size: 16px;
 }
 
 #fixationOpacity {
@@ -646,6 +748,8 @@ label {
 	position: absolute;
 	left: 30px;
 	top: -30px;
+
+	font-size: 16px;
 }
 
 #radialDecay {
@@ -661,6 +765,8 @@ label {
 	position: absolute;
 	left: 30px;
 	top: 0px;
+
+	font-size: 16px;
 }
 
 #numFixations {
@@ -676,12 +782,16 @@ label {
 	position: absolute;
 	left: 30px;
 	top: 35px;
+
+	font-size: 16px;
 }
 
 #videoOffsetLabel {
 	position: absolute;
 	left: 30px;
 	top: 70px;
+
+	font-size: 16px;
 }
 
 #videoOffset {
@@ -696,6 +806,8 @@ label {
 	position: absolute;
 	left: 30px;
 	top: 105px;
+
+	font-size: 16px;
 }
 
 #simOffset {
@@ -711,4 +823,10 @@ label {
 	position: absolute;
 	left: 145px;
 	top: 308px;
+}
+
+#downloadIndicators {
+	position: absolute;
+    left: 25px;
+    top: 100px;
 }

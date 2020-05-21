@@ -124,46 +124,168 @@ function ClimbTape(ctx, location, data) {
 	}
 
 	this.draw = function() {
-		drawTape(this.loc, 7, false, 100,
-			10, true, 29, this.data.rate_of_clb, 100);
-
 		var x = this.loc.x;
 		var y = this.loc.y;
 		var wid = this.loc.width;
 		var hei = this.loc.height;
 
+		
+		ctx.fillStyle = GUAGE_BACKGROUND;
+		ctx.fillRect(x, y, wid, hei);
+
 		ctx.fillStyle = 'black';
-		ctx.strokeStyle = 'black';
 
 		ctx.beginPath();
 		ctx.moveTo((x + (wid / 2)), y);
 		ctx.lineTo(x + wid + 3, y);
 		ctx.lineTo(x + wid + 3, y + 50);
-		ctx.closePath();
-		ctx.stroke();
 		ctx.fill();
 
 		ctx.beginPath();
 		ctx.moveTo((x + (wid / 2)), y + hei);
 		ctx.lineTo(x + wid + 3, y + hei);
 		ctx.lineTo(x + wid + 3, y + hei - 50);
-		ctx.closePath();
-		ctx.stroke();
 		ctx.fill();
+
+		ctx.fillRect(x, 174, 8, 51);
+
+		ctx.strokeStyle = 'white';
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 200);
+		ctx.lineTo(x+20, 200);
+		ctx.stroke();
+
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 175);
+		ctx.lineTo(x+14, 175);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(x+8, 225);
+		ctx.lineTo(x+14, 225);
+		ctx.stroke();
+
+		//Upper Six Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 90);
+		ctx.lineTo(x+14, 90);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("6", x+2, 93);
+
+		//Lower Six Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 310);
+		ctx.lineTo(x+14, 310);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("6", x+2, 313);
+
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 100);
+		ctx.lineTo(x+14, 100);
+		ctx.stroke();
+
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 300);
+		ctx.lineTo(x+14, 300);
+		ctx.stroke();
+
+		//Upper Two Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 110);
+		ctx.lineTo(x+14, 110);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("2", x+2, 113);
+
+		//Lower Two Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 290);
+		ctx.lineTo(x+14, 290);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("2", x+2, 293);
+
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 130);
+		ctx.lineTo(x+14, 130);
+		ctx.stroke();
+
+		ctx.beginPath()
+		ctx.moveTo(x+8, 270);
+		ctx.lineTo(x+14, 270);
+		ctx.stroke();
+
+		//Upper One Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 150);
+		ctx.lineTo(x+14, 150);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("1", x+2, 153);
+
+		//Lower One Dash
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+8, 250);
+		ctx.lineTo(x+14, 250);
+		ctx.stroke();
+
+		ctx.font = "9px Arial";
+		ctx.fillStyle = "white";
+		ctx.fillText("1", x+2, 253);
+
+		ctx.beginPath();
+		ctx.arc(x+wid-2, 200, 2, 0, 2*Math.PI);
+		ctx.fill();
+
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.moveTo(x+wid-2, 200);
+		if (this.data.rate_of_clb <= 1000 && this.data.rate_of_clb >= -1000) {
+			var yShift = this.data.rate_of_clb / 20;
+
+		} else if (this.data.rate_of_clb <= 2000 && this.data.rate_of_clb >= -2000) {
+			var yShift = (this.data.rate_of_clb % 1001)/25;
+			if (this.data.rate_of_clb < 0) {
+				yShift -= 50;
+			} else {
+				yShift += 50;
+			}
+		} else if (this.data.rate_of_clb <= 6000 && this.data.rate_of_clb >= -6000) {
+			var yShift = ((this.data.rate_of_clb - 2000) % 4001)/200;
+			if (this.data.rate_of_clb < 0) {
+				yShift -= 90;
+			} else {
+				yShift += 90;
+			}
+		}
+		ctx.lineTo(x+12, 200-yShift);
+		ctx.stroke();
 
 		ctx.font = "11px Arial";
 		ctx.fillStyle = "#e357ff";
 		ctx.fillText(data.mcp_vert_spd_ds, location.x, location.y - 5);
-
-		ctx.fillStyle = 'white';
-		ctx.strokeStyle = 'white';
-
-		if ((this.data.rate_of_clb % 100) >= 3 || (this.data.rate_of_clb >= 3 && this.data.rate_of_clb <= 100) || (this.data.rate_of_clb >= -95 && this.data.rate_of_clb <= -3)) {
-			ctx.beginPath();
-			ctx.moveTo(x+10, y+hei/2);
-			ctx.lineTo(x+wid+3, y+hei/2);
-			ctx.stroke();
-		}
-
 	}
 }

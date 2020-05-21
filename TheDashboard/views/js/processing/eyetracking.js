@@ -116,6 +116,9 @@ function drawTrackers() {
 	}
 	trackerQueue.reverse();
 	for (i = 0; i < trackerQueue.length; i++) {
+		if (radius < 0) {
+			radius = 0;
+		}
 		var specX  = trackerQueue[i].x + (trackerQueue[i].wid * trackerQueue[i].pgazeX);
 		var specY = trackerQueue[i].y - (trackerQueue[i].hei * trackerQueue[i].pgazeY);
 
@@ -146,6 +149,10 @@ function drawTrackers() {
 			}
 		} else {
 			radius = radius * initDecay;
+		}
+
+		if (radius < 0) {
+			radius = 0;
 		}
 	}
 	trackerQueue.reverse();
