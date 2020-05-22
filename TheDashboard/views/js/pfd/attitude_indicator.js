@@ -90,7 +90,6 @@ function AttitudeIndicator(ctx, location, data) {
 		if (yPDev <= 110 && yPDev >= -110) {
 			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
 		}
-		console.log("YADD: ",yPDev);
 
 		rDev = rDev * 5 * this.pixelsPerDegree;
 		var XAddFactor = rDev;
@@ -98,7 +97,6 @@ function AttitudeIndicator(ctx, location, data) {
 		var heiPDev = 160;
 		var xPDev = XAddFactor - (widthPDev/2);
 		var yPDev = 0 - (heiPDev / 2);
-		console.log("XADD: ",xPDev);
 		if (xPDev <= 100 && xPDev >= -100) {
 			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
 		}

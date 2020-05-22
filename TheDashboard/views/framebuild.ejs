@@ -90,7 +90,7 @@
 	</div>
 
 	<div id="vidDiv">
-		<video id="vid"> <source src="video/overShoulder.mp4" type="video/mp4"></video>
+		<video id="vid" preload="auto"> <source src="video/overShoulder.mp4" type="video/mp4"></video>
 	</div>
 
 	<div id="settingsDiv">
@@ -107,7 +107,7 @@
   		<label for="videoOffset" id="videoOffsetLabel">Video Offset:</label>
   		<input type="text" id="videoOffset" name="videoOffset">
 
-  		<label for="simOffset" id="simOffsetLabel">Sim. Input:</label>
+  		<label for="simOffset" id="simOffsetLabel">Sim. Data Offset:</label>
   		<input type="text" id="simOffset" name="simOffsetInput">
 
   		<label for="numFixations" id="numFixationsLabel">Num. Fixations:</label>
@@ -143,12 +143,13 @@
   		<textarea id="eventMessage" cols="40" rows="5"></textarea>
 
   		<input id="addEvent" type="submit" value="Add">
-  		<input id="downloadIndicators" type="submit" value="Download Indicators">
+  		<input id="downloadIndicators" type="submit" value="Download Event Markers">
 	</div>
 </body>
 </html>
 
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/processing/HackTimer.js"></script>
 
 <!-- MCP JS Files -->
 <script src="js/mcp/mcp_panel.js"></script>
@@ -464,6 +465,12 @@
     })
 
 	function runSimulation() {
+		if (!document.hasFocus() && false) {
+			document.getElementById("vid").pause();
+			return;
+		}
+
+		//
 		data_index = parseInt(data_index) + 1; 
 
 		if (indicatorAlert) {
