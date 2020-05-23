@@ -33,12 +33,15 @@ app.post('/upload', function(req, res) {
 	}
 
 	let sampleFile = req.files.sampleFile;
-	sampleFile.mv("data/input.csv", function(err) {
+	expirementName = req.files.sampleFile.name.slice(0,-4);
+	simDataInfo.expirementName = expirementName;
+	console.log(simDataInfo.expirementName);
+	sampleFile.mv("data/" + sampleFile.name, function(err) {
 		if (err) {
 			return res.status(500).send(err);
 		}
 		console.log("Parsing file.");
-		csvHandler();
+		csvHandler(sampleFile.name);
 		res.redirect("/initialize");
 	})
 });
@@ -64,7 +67,9 @@ app.post('/vid-upload', function(req, res) {
 	}
 
 	let sampleFile = req.files.sampleFile;
-	sampleFile.mv("views/video/overShoulder.mp4", function(err) {
+	videoName = req.files.sampleFile.name.slice(0,-4);
+	simDataInfo.videoName = videoName;
+	sampleFile.mv("views/video/" + videoName + ".mp4", function(err) {
 		if (err) {
 			return res.status(500).send(err);
 		}
@@ -75,13 +80,12 @@ app.post('/vid-upload', function(req, res) {
 
 app.get('/simulation', function(req, res) {
 	event_data = eventIndicatorHandler();
-	if (!fs.existsSync('data/initialized.txt')) {
-		sim_data = [];
+	if (!fs.existsSync('data/' + simDataInfo.expirementName + ".csv")) {
+		sim_data = "[]";
 	} else {
-		sim_data = fs.readFileSync("data/initialized.txt", "utf8");
+		sim_data = fs.readFileSync("data/" + simDataInfo.expirementName + ".txt", "utf8");
 	}
-
-	res.render("framebuild.ejs", {data: sim_data, event_data: event_data});
+	res.render("framebuild.ejs", {data: sim_data, event_data: event_data, simDataInfo: JSON.stringify(simDataInfo)});
 });
 
 app.post('/event-download', function(req, res) {
@@ -103,7 +107,7 @@ app.post('/event-download', function(req, res) {
 			output = output + line + "\n";
 		}
 
-		fs.writeFile('events/eventIndicators.csv', output, function(err) {
+		fs.writeFile('events/event_' + simDataInfo.expirementName.slice(4) + ".csv", output, function(err) {
 			if (err) throw err;
 		});
 		console.log("Sucessfully wrote CSV file of event indicators");
@@ -116,8 +120,8 @@ app.listen(app.get('port'), function() {
 	console.log("Server started. Press Ctrl-C to terminate.");
 });
 
-function csvHandler() {
-	fs.readFile('data/input.csv', function(err, data){
+function csvHandler(fileName) {
+	fs.readFile('data/' + fileName, function(err, data){
 		if (err) {
 			return console.log(err);
 		}
@@ -133,8 +137,8 @@ function csvHandler() {
 	    	}
 	    	jsonObj.push(obj);
 	    }
-
-	    fs.writeFile('data/initialized.txt', JSON.stringify(jsonObj), function(err) {
+	    expirementName = fileName.slice(0,-4);
+	    fs.writeFile('data/' + expirementName + ".txt", JSON.stringify(jsonObj), function(err) {
 	    	if (err) throw err;
 	    });
 	});
@@ -142,14 +146,17 @@ function csvHandler() {
 }
 
 function eventIndicatorHandler() {
-	if (!fs.existsSync('events/eventIndicators.csv')) {
+	if (!fs.existsSync('events/event_' + simDataInfo.expirementName.slice(4) + ".csv")) {
 		return 0;
 	}
-	var bufferString = fs.readFileSync('events/eventIndicators.csv', 'utf8');
+	var bufferString = fs.readFileSync('events/event_' + simDataInfo.expirementName.slice(4) + ".csv", 'utf8');
 	var arr = bufferString.split('\n');
 	var jsonObj = [];
     var headers = arr[0].split(',');
     for(var i = 1; i < arr.length; i += 1) {
+    	if (arr[i] == "" || arr[i] == ",") {
+    		continue;
+    	}
     	var data = arr[i].split(',');
     	var obj = {};
     	for(var j = 0; j < data.length; j++) {
@@ -157,5 +164,27 @@ function eventIndicatorHandler() {
     	}
     	jsonObj.push(obj);
     }
+
     return JSON.stringify(jsonObj);
 }
+
+simDataInfo = {
+	expirementName: "",
+	videoName: ""
+}
+
+fs.readdir('data', function(err, files) {
+	for (i = 0; i < files.length; i++) {
+		if (files[i].slice(-4) == ".csv") {
+			simDataInfo.expirementName = files[i].slice(0,-4);
+		}
+	}
+});
+
+fs.readdir('views/video', function(err, files) {
+	for (i = 0; i < files.length; i++) {
+		if (files[i].slice(-4) == ".mp4") {
+			simDataInfo.videoName = files[i].slice(0,-4);
+		}
+	}
+});

@@ -80,7 +80,7 @@ function enterData() {
 	pfdSim.memory.mcp_ias_mach_ds = format_pfd_preserve(raw_memory[i]["\"mcp_ias_mach_ds\""]);
 	pfdSim.memory.mcp_alt_ds = format_pfd_preserve(raw_memory[i]["\"mcp_alt_ds\""]);
 	pfdSim.memory.mcp_vert_spd_ds = format_pfd_preserve(raw_memory[i]["\"mcp_vert_spd_ds\""]);
-	pfdSim.memory.fo_ef_baro_cur = format_pfd_preserve(raw_memory[i]["\"fo_ef_baro_cur\""]);
+	pfdSim.memory.fo_ef_baro_cur = format_pfd_preserve(raw_memory[i]["\"fo_ef_baro_cur\""] / 33.864);
 	pfdSim.memory.cal_as = format_pfd_preserve(raw_memory[i]["\"cal_as\""]);
 	pfdSim.memory.rate_of_clb = format_pfd_preserve(raw_memory[i]["\"rate_of_clb\""]);
 	pfdSim.memory.pres_alt = format_pfd_preserve(raw_memory[i]["\"pres_alt\""]);

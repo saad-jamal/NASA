@@ -18,12 +18,17 @@ function AltimeterTape(ctx, location, data) {
 
 		ctx.strokeStyle = 'white';
 		ctx.fillStyle = 'black';
-		ctx.strokeRect(location.x - 5, location.y + location.height + 3, location.width + 5, 35);
+		ctx.strokeRect(location.x - 5, location.y + location.height + 3, location.width + 8, 22);
 
-		ctx.font = "23px Arial";
-		ctx.fillStyle = 'white';
-		var textWidth = ctx.measureText(data.fo_ef_baro_cur).width/2;
-		ctx.fillText(data.fo_ef_baro_cur, location.x + 22 - textWidth, location.y + 28 + location.height);
+		ctx.font = "17px Arial";
+		ctx.fillStyle = "#5afc03";
+
+		var pressureText = this.data.fo_ef_baro_cur.toFixed(2);
+		var textWidth = ctx.measureText(pressureText).width/2;
+		ctx.fillText(pressureText, location.x + 18 - textWidth, location.y + 20 + location.height);
+
+		ctx.font = "10px Arial";
+		ctx.fillText("IN", location.x+43, location.y+location.height+20);
 	}
 }
 
