@@ -153,7 +153,6 @@ function csvHandler(fileName) {
     		"finish",
     		function handleFinish() {
         		console.log("Input data successfully parsed.");
-        		alert("Input data successfully parsed.");
     		}
     	);
 	    /*for(var i = 3; i < arr.length; i += 1) { //Parses through every data value. Ensures 60Hz.
