@@ -5,6 +5,7 @@ var fs = require('fs');
 var ejs = require('ejs')
 var app = express();
 var fileUpload = require('express-fileupload');
+var JSONStream = require( "JSONStream" );
 
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
@@ -129,10 +130,39 @@ function csvHandler(fileName) {
 		var arr = bufferString.split('\n');
 		var jsonObj = [];
 	    var headers = arr[1].split(',');
-	    for(var i = 3; i < arr.length; i += 3) {
+	    for (var i = 3; i < arr.length; i += 1) {
+	    	var data = arr[i].split(',');
+	    	var obj = {};
+	    	for (var j = 0; j < data.length; j++) {
+	    		if (j == 0 && (data[j].trim() == "")) {
+	    			i = arr.length;
+	    			break;
+	    		}
+	    		obj[headers[j].trim()] = data[j].trim();
+	    	}
+	    	jsonObj.push(obj);
+	    }
+	    var transformStream = JSONStream.stringify();
+	    expirementName = fileName.slice(0,-4);
+		var outputStream = fs.createWriteStream('data/' + expirementName + ".txt");
+		transformStream.pipe( outputStream );    
+		jsonObj.forEach( transformStream.write );
+		transformStream.end();
+
+		outputStream.on(
+    		"finish",
+    		function handleFinish() {
+        		console.log("Input data successfully parsed.");
+    		}
+    	);
+	    /*for(var i = 3; i < arr.length; i += 1) { //Parses through every data value. Ensures 60Hz.
 	    	var data = arr[i].split(',');
 	    	var obj = {};
 	    	for(var j = 0; j < data.length; j++) {
+	    		if (j == 0 && (data[j].trim() == "")) {
+	    			i = arr.length;
+	    			break;
+	    		}
 	        	obj[headers[j].trim()] = data[j].trim();
 	    	}
 	    	jsonObj.push(obj);
@@ -140,9 +170,8 @@ function csvHandler(fileName) {
 	    expirementName = fileName.slice(0,-4);
 	    fs.writeFile('data/' + expirementName + ".txt", JSON.stringify(jsonObj), function(err) {
 	    	if (err) throw err;
-	    });
+	    });*/
 	});
-	console.log("Input data successfully parsed.")
 }
 
 function eventIndicatorHandler() {

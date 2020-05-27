@@ -29,12 +29,19 @@ function drawTracking() {
 	eyeCtx.clearRect(0, 0, ctxWid, ctxHei);
 
 	if (data_index > 0) {
-		newFixation = raw_memory[data_index]["\"saccade\""] == "0" 
-			&& raw_memory[data_index - 1]["\"saccade\""] == "1";
+		newFixation = (raw_memory[data_index]["\"saccade\""] == "0" 
+				&& (raw_memory[data_index - 1]["\"saccade\""] == "1"
+					|| raw_memory[data_index - 2]["\"saccade\""] == "1"
+					|| raw_memory[data_index - 3]["\"saccade\""] == "1"));
+
 	}
 	if (previousObject != object_being_viewed 
 			&& raw_memory[data_index]["\"saccade\""] != "1") {
 		newFixation  = true;
+	}
+
+	if (linearFix == true) {
+		newFixation = true;
 	}
 
 	if (object_being_viewed === "0") {
@@ -138,7 +145,7 @@ function drawTracking() {
 function drawTrackers() {
 	opacity = initOpacity;
 	radius = initRadius;
-	if ((data_index - hold) >= (70)) {
+	if ((data_index - hold) >= (180)) {
 		trackerQueue = [];
 		return;
 	}
@@ -186,7 +193,7 @@ function drawTrackers() {
 			if (i == 0) {
 				radius = radius * initDecay;
 			} else {
-				radius -= 2;
+				radius -= 4;
 			}
 		} else {
 			radius = radius * initDecay;

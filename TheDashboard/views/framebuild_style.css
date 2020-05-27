@@ -737,16 +737,32 @@ label {
 
 #alertIndicatorLabel {
 	position: absolute;
-	left: 220px;
-	top: -40px;
+	left: 221px;
+	top: 133px;
 
 	font-size: 16px;
+	line-height: 0px;
 }
 
 #alertIndicator {
 	position: absolute;
 	left: 330px;
 	top: 125px;
+}
+
+#linearFixationsLabel {
+	position: absolute;
+	left: 221px;
+	top: 163px;
+
+	font-size: 16px;
+	line-height: 0px;
+}
+
+#linearFixations {
+	position: absolute;
+	left: 330px;
+	top: 155px;
 }
 
 #fixationOpacityLabel {
@@ -850,5 +866,11 @@ label {
 #downloadIndicators {
 	position: absolute;
     left: 25px;
+    top: 100px;
+}
+
+#clearIndicators {
+	position: absolute;
+    left: 182px;
     top: 100px;
 }
