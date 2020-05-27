@@ -177,7 +177,7 @@
 	var data_index = 0;
 	var raw_string = <%-(data)%>;
 	var raw_memory = raw_string;
-	document.getElementById("slider").max = (raw_memory.length - 3) * 3;
+	document.getElementById("slider").max = (raw_memory.length - 3);
 
 	//Events Being Passed In From Server side.
 	var raw_event_data = <%-event_data%>;
@@ -214,8 +214,8 @@
 <script type="text/javascript">
 	var runner;
 	var running = false;
-	//Note that we are running at 20 hertz.
-	var sim_speed = 50; //Need to fix this later.
+	//Note that we are running at 60 hertz.
+	var sim_speed = 16.7; //FREQ
 
 	var tvVisible = false;
 	var settingsVisible = false;
@@ -239,10 +239,10 @@
 
 			formattedTime = formattedMinutes + ":" + formattedSeconds;
 
-			event_data_index = Math.round(specTime / (0.0167 * 3));
-			event_frame = event_data_index * 3;
+			event_data_index = Math.round(specTime / (0.0167)); //FREQ
+			event_frame = event_data_index * 3; // FREQ
 
-			var xShift = event_frame / ((raw_memory.length * 3) / 480);
+			var xShift = event_frame / ((raw_memory.length) / 480);
 			xShift += 0;
 
 			$(".slidecontainer").append("<img title='" + formattedTime + " " + specMessage + "' style='position: absolute; left: " + xShift +"px; top: 49px; width: 3px; height: 50px' src='img/red_bar.png' id='eventImg" + eventFlags.length + "'>");
@@ -290,11 +290,11 @@
 		runner = clearInterval(runner);
 		running = false;
 		data_index = 0;
-		sim_speed = 16.7 * 3;
+		sim_speed = 16.66; //FREQ
 		console.log("Reset simulation.");
 
-		document.getElementById("slider").value = 3*data_index;
-		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("slider").value = data_index; //FREQ
+		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: 00:00";
 		$("#simOffset").val(0);
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -310,11 +310,11 @@
 		running = false;
 		document.getElementById("vid").pause();
 		
-		data_index += 20;
+		data_index += 60; //FREQ
 		document.getElementById("vid").currentTime += 1;
 
-		document.getElementById("slider").value = 3*data_index;
-		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("slider").value = data_index; //FREQ
+		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -332,11 +332,11 @@
 		if (data_index <= 0) {
 			return;
 		} 
-		data_index -= 20;
+		data_index -= 60; //FREQ
 		document.getElementById("vid").currentTime -= 1;
 
-		document.getElementById("slider").value = 3*data_index;
-		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("slider").value = data_index; //FREQ
+		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -396,10 +396,10 @@
 
 		formattedTime = formattedMinutes + ":" + formattedSeconds;
 
-		event_data_index = Math.round(specTime / (0.0167 * 3));
-		event_frame = event_data_index * 3;
+		event_data_index = Math.round(specTime / (0.0167)); //FREQ
+		event_frame = event_data_index; //FREQ
 
-		var xShift = event_frame / ((raw_memory.length * 3) / 480);
+		var xShift = event_frame / ((raw_memory.length) / 480); //FREQ
 		xShift += 0;
 
 		var eventObj = {"time": specTime, "message": specMessage};
@@ -407,7 +407,6 @@
 
 		$(".slidecontainer").append("<img title='" + formattedTime + " " + specMessage + "' style='position: absolute; left: " + xShift +"px; top: 49px; width: 3px; height: 50px' src='img/red_bar.png' id='eventImg" + eventFlags.length + "'>");
 
-		console.log(event_data_index);
 	});
 
 	$("#settings").click(function() {
@@ -457,24 +456,31 @@
 		}
 		cross = $('#fixationCross').prop('checked');
 		indicatorAlert = $('#alertIndicator').prop('checked');
-		data_index = Math.round($("#simOffset").val() / (0.0167 * 3));
-		console.log("Frame Count Changed: " + data_index * 3);
+		data_index = Math.round($("#simOffset").val() / (0.0167)); //FREQ
+		console.log("Frame Count Changed: " + data_index);
 		initOffset = parseInt($("#videoOffset").val());
 		document.getElementById("vid").currentTime = (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])) + initOffset;
 		
-		document.getElementById("slider").value = 3*data_index;
-		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("slider").value = data_index; //FREQ
+		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
+
+		enterData();
+		drawAll();
+		eyeCtx.clearRect(0, 0, ctxWid, ctxHei);
+		trackerQueue = [];
+		hold = 0;
+		previousObject = "";
+		newFixation = true;
     })
 
 	function runSimulation() {
 		
 		data_index = parseInt(data_index) + 1; 
-		console.log(data_index);
 		if (indicatorAlert) {
 			for (i = 0; i < eventFlags.length; i++) {
-				event_data_index = Math.round(eventFlags[i].time / (0.0167 * 3));
+				event_data_index = Math.round(eventFlags[i].time / (0.0167)); //FREQ
 				if (event_data_index == data_index) {
 					document.getElementById("vid").pause();
 					running = false;
@@ -486,8 +492,8 @@
 			}
 		}
 		document.getElementById("vid").play();
-		document.getElementById("slider").value = 3*data_index;
-		document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+		document.getElementById("slider").value = data_index; //FREQ
+		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -509,8 +515,8 @@
 		console.log("Pausing simulation. Slider value is being changed.");
 		runner = clearInterval(runner);
 		running = false;
-	 	data_index = parseInt(slider.value / 3);
-	 	document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+	 	data_index = parseInt(slider.value);
+	 	document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 	 	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -520,8 +526,8 @@
 	 	document.getElementById("vid").pause();
 	}
     
-    document.getElementById("slider").value = 3*data_index;
-	document.getElementById("frame").innerHTML = "Frame Count: " + (3*data_index);
+    document.getElementById("slider").value = data_index; //FREQ
+	document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
 	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 

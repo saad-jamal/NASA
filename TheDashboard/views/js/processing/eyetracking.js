@@ -138,7 +138,7 @@ function drawTracking() {
 function drawTrackers() {
 	opacity = initOpacity;
 	radius = initRadius;
-	if ((data_index - hold) >= (70)) {
+	if ((data_index - hold) >= (180)) {
 		trackerQueue = [];
 		return;
 	}

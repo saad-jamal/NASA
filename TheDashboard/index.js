@@ -129,10 +129,14 @@ function csvHandler(fileName) {
 		var arr = bufferString.split('\n');
 		var jsonObj = [];
 	    var headers = arr[1].split(',');
-	    for(var i = 3; i < arr.length; i += 3) {
+	    for(var i = 3; i < arr.length; i += 1) { //Parses through every data value. Ensures 60Hz.
 	    	var data = arr[i].split(',');
 	    	var obj = {};
 	    	for(var j = 0; j < data.length; j++) {
+	    		if (j == 0 && (data[j].trim() == "")) {
+	    			i = arr.length;
+	    			break;
+	    		}
 	        	obj[headers[j].trim()] = data[j].trim();
 	    	}
 	    	jsonObj.push(obj);
