@@ -380,6 +380,7 @@
 			running = false;
 			runner = clearInterval(runner);
 			console.log("Changing settings. Simulation paused.");
+			document.getElementById("vid").pause();
 		}
 
 		if (eventVisible) {
