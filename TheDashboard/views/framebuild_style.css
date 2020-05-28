@@ -666,10 +666,17 @@ video {
 	height: 30px;
 }
 
+#colorSelector {
+	width: 64px;
+    position: absolute;
+    left: 285px;
+    top: 60px;
+}
+
 #addEvent {
 	position: absolute;
-	left: 290px;
-	top: 60px;
+    left: 285px;
+    top: 79px;
 }
 
 #eventList {

@@ -53,7 +53,7 @@ app.post('/event-upload', function(req, res) {
 	}
 
 	let sampleFile = req.files.sampleFile;
-	sampleFile.mv("events/eventIndicators.csv", function(err) {
+	sampleFile.mv('events/' + sampleFile.name, function(err) {
 		if (err) {
 			return res.status(500).send(err);
 		}
@@ -108,7 +108,7 @@ app.post('/event-download', function(req, res) {
 			output = output + line + "\n";
 		}
 
-		fs.writeFile('events/event_' + simDataInfo.expirementName.slice(4) + ".csv", output, function(err) {
+		fs.writeFile('events/event_markers_' + simDataInfo.expirementName.slice(9) + ".csv", output, function(err) {
 			if (err) throw err;
 		});
 		console.log("Sucessfully wrote CSV file of event indicators");
@@ -189,7 +189,11 @@ function eventIndicatorHandler() {
     	var data = arr[i].split(',');
     	var obj = {};
     	for(var j = 0; j < data.length; j++) {
-        	obj[headers[j].trim()] = data[j].trim();
+    		if (headers[j].trim() == "color" && data[j].trim() == "") {
+    			obj[headers[j].trim()] = "red";
+    		} else {
+    			obj[headers[j].trim()] = data[j].trim();
+    		}
     	}
     	jsonObj.push(obj);
     }
