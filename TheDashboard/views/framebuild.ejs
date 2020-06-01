@@ -76,7 +76,7 @@
 
 		<div class="slidecontainer">
 			<p id="time">Real Time: --/--/-- --:--</p>
-  			<p id="frame">Frame Count: 0</p>
+  			<p id="seconds">Elapsed Seconds: 0</p>
   			<p id="elapsed">Elapsed Time: 00:00</p>
   			<input type="range" min="1" max="100" value="1" class="slider" id="slider">
   			<div class="eventContainer"></div>
@@ -152,7 +152,7 @@
   		</select>
 
   		<input id="addEvent" type="submit" value="Add">
-  		<input id="downloadIndicators" type="submit" value="Download Event Markers">
+  		<input id="downloadIndicators" type="submit" value="Download Events">
   		<input id="clearIndicators" type="submit" value="Clear Event Markers">
 	</div>
 </body>
@@ -340,7 +340,7 @@
 		console.log("Reset simulation.");
 
 		document.getElementById("slider").value = data_index; //FREQ
-		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+		document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: 00:00";
 		$("#simOffset").val(0);
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -360,7 +360,7 @@
 		document.getElementById("vid").currentTime += 1;
 
 		document.getElementById("slider").value = data_index; //FREQ
-		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+		document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -382,7 +382,7 @@
 		document.getElementById("vid").currentTime -= 1;
 
 		document.getElementById("slider").value = data_index; //FREQ
-		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+		document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -546,7 +546,7 @@
 		document.getElementById("vid").currentTime = (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])) + initOffset;
 		
 		document.getElementById("slider").value = data_index; //FREQ
-		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+		document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 
@@ -570,7 +570,7 @@
 			document.getElementById("vid").pause();
 
 			document.getElementById("slider").value = data_index; //FREQ
-			document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+			document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 			document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 			$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 			document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -585,7 +585,7 @@
 					runner = clearInterval(runner);
 
 					document.getElementById("slider").value = data_index; //FREQ
-					document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+					document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 					document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 					$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 					document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -597,7 +597,7 @@
 		}
 		document.getElementById("vid").play();
 		document.getElementById("slider").value = data_index; //FREQ
-		document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+		document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 		document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 		document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -614,7 +614,7 @@
 		runner = clearInterval(runner);
 		running = false;
 	 	data_index = parseInt(slider.value);
-	 	document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+	 	document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 	 	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	$("#simOffset").val((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
@@ -622,10 +622,19 @@
 	 	document.getElementById("vid").currentTime = (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])) + initOffset;
 
 	 	document.getElementById("vid").pause();
+
+	 	enterData();
+		drawAll();
+		eyeCtx.clearRect(0, 0, ctxWid, ctxHei);
+		trackerQueue = [];
+		hold = 0;
+		previousObject = "";
+		newFixation = true;
+		drawTracking();
 	}
     
     document.getElementById("slider").value = data_index; //FREQ
-	document.getElementById("frame").innerHTML = "Frame Count: " + (data_index); //FREQ
+	document.getElementById("seconds").innerHTML = "Elapsed Seconds: " + (parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])).toFixed(1);
 	document.getElementById("elapsed").innerHTML = "Elapsed Time: " + formatTime((parseFloat(raw_memory[data_index]["\"utc_time\""]) - parseFloat(raw_memory[0]["\"utc_time\""])));
 	document.getElementById("time").innerHTML = "Real Time: " + raw_memory[data_index]["\"utc_datetime\""];
 

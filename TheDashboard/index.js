@@ -175,10 +175,11 @@ function csvHandler(fileName) {
 }
 
 function eventIndicatorHandler() {
-	if (!fs.existsSync('events/event_' + simDataInfo.expirementName.slice(4) + ".csv")) {
+	if (!fs.existsSync('events/event_markers_' + simDataInfo.expirementName.slice(9) + ".csv")) {
+		console.log("No previously recorded events.");
 		return 0;
 	}
-	var bufferString = fs.readFileSync('events/event_' + simDataInfo.expirementName.slice(4) + ".csv", 'utf8');
+	var bufferString = fs.readFileSync('events/event_markers_' + simDataInfo.expirementName.slice(9) + ".csv", 'utf8');
 	var arr = bufferString.split('\n');
 	var jsonObj = [];
     var headers = arr[0].split(',');

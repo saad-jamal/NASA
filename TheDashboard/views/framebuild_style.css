@@ -75,15 +75,15 @@ body {
 	font-size: 14px;
 
 	position: absolute;
-	left: 190px;
+	left: 168px;
 	top: -38px;
 }
 
-#frame {
+#seconds {
 	font-size: 14px;
 
 	position: absolute;
-	left: 190px;
+	left: 168px;
 	top: 8px;
 }
 
@@ -874,6 +874,7 @@ label {
 	position: absolute;
     left: 25px;
     top: 100px;
+    width: 118px;
 }
 
 #clearIndicators {
