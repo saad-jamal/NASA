@@ -8,8 +8,9 @@ function AltimeterTape(ctx, location, data) {
 	}
 
 	this.draw = function() {
+		var revised_altitude = ((this.data.fo_ef_baro_cur - 1013)*28) + this.data.pres_alt;
 		drawTape(this.loc, 13, true, 1000,
-			100, true, 50, this.data.pres_alt, 100);
+			100, true, 50, Math.ceil(revised_altitude), 100);
 
 		ctx.font = "20px Arial";
 		ctx.fillStyle = "#e357ff";
@@ -23,7 +24,7 @@ function AltimeterTape(ctx, location, data) {
 		ctx.font = "17px Arial";
 		ctx.fillStyle = "#5afc03";
 
-		var pressureText = this.data.fo_ef_baro_cur.toFixed(2);
+		var pressureText = (this.data.fo_ef_baro_cur / 33.864).toFixed(2);
 		var textWidth = ctx.measureText(pressureText).width/2;
 		ctx.fillText(pressureText, location.x + 18 - textWidth, location.y + 20 + location.height);
 
@@ -42,7 +43,8 @@ function AltimeterTicker(ctx, location, data) {
 	}
 
 	this.draw = function() {
-		this.drawAltitimeterDigits(this.data.pres_alt);
+		var revised_altitude = ((this.data.fo_ef_baro_cur - 1013)*28) + this.data.pres_alt;
+		this.drawAltitimeterDigits(Math.ceil(revised_altitude));
 	}
 
 	this.drawAltitimeterDigits = function(altitude) {

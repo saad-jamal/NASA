@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/info', function(req, res) {
-	res.render('info.ejs');
+	res.redirect("https://docs.google.com/document/d/1bsLYXx3Pq2-0BF0JLfKMqSU4c6INU8APC5SiMX1xyec/edit?usp=sharing");
 });
 
 app.get('/initialize', function(req, res) {
