@@ -9,7 +9,7 @@ function AttitudeIndicator(ctx, location, data) {
 
 	this.draw = function() {
 		this.drawBackground(this.data.pitch_angle, this.data.roll_angle);
-		this.drawForeground(0, this.data.fo_cmd_pit_dev, this.data.fo_cmd_roll_dev); //The argument to this function can change the circle in the wings.
+		this.drawForeground(0, this.data.fo_cmd_pit_dev, this.data.fo_cmd_roll_dev, this.data.mcp_fd_2); //The argument to this function can change the circle in the wings.
 		this.drawMisc(this.data.fo_ap_stat);	
 	}
 
@@ -66,7 +66,7 @@ function AttitudeIndicator(ctx, location, data) {
 		ctx.lineWidth = 1;
 	}
 
-	this.drawForeground = function(turnCoordinationAngle, pDev, rDev) {
+	this.drawForeground = function(turnCoordinationAngle, pDev, rDev, drawFD) {
 		turnCoordinationAngle = 0;
 		var x = this.loc.x;
 		var y = this.loc.y;
@@ -87,7 +87,7 @@ function AttitudeIndicator(ctx, location, data) {
 		var heiPDev = 4;
 		var YaddFactor = pDev;
 		var yPDev = YaddFactor - (heiPDev/2);
-		if (yPDev <= 110 && yPDev >= -110) {
+		if (yPDev <= 110 && yPDev >= -110 && drawFD) {
 			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
 		}
 
@@ -97,7 +97,7 @@ function AttitudeIndicator(ctx, location, data) {
 		var heiPDev = 160;
 		var xPDev = XAddFactor - (widthPDev/2);
 		var yPDev = 0 - (heiPDev / 2);
-		if (xPDev <= 100 && xPDev >= -100) {
+		if (xPDev <= 100 && xPDev >= -100 && drawFD) {
 			ctx.fillRect(xPDev, yPDev, widthPDev, heiPDev);
 		}
 

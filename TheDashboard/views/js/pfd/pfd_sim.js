@@ -10,6 +10,7 @@ function PFDSim() {
 
 		fo_cws_pit: false,
 		fo_cws_roll: false,
+		mcp_fd_2: false,
 
 		fo_ap_stat: "",
 

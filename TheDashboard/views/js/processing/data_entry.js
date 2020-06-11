@@ -70,6 +70,7 @@ function enterData() {
 	pfdSim.memory.fo_pit_eng = pfd_strings(raw_memory[i]["\"fo_pit_eng\""]);
 	pfdSim.memory.fo_pit_arm = pfd_strings(raw_memory[i]["\"fo_pit_arm\""]);
 	pfdSim.memory.fo_ap_stat = pfd_strings(raw_memory[i]["\"fo_ap_stat\""]);
+	pfdSim.memory.mcp_fd_2 = zero_or_one(raw_memory[i]["\"mcp_fd_2\""])
 
 	pfdSim.memory.fo_cws_pit = format_pfd_preserve(raw_memory[i]["\"o_cws_pit\""]);
 	pfdSim.memory.fo_cws_roll = format_pfd_preserve(raw_memory[i]["\"fo_cws_roll\""]);
