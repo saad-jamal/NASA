@@ -153,8 +153,8 @@ function NDSim() {
 
         ctx.font = "30px Arial";
         ctx.fillStyle = 'white';
-        var textSize = ctx.measureText(this.memory.mag_track_angle).width / 2;
-        ctx.fillText(this.memory.mag_track_angle, (ctxWid/2) - textSize, 26);
+        var textSize = ctx.measureText(Math.round(this.memory.mag_track_angle)).width / 2;
+        ctx.fillText(Math.round(this.memory.mag_track_angle), (ctxWid/2) - textSize, 26);
 
         ctx.font = "14px Arial";
         ctx.fillStyle = "#5afc03";
